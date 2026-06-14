@@ -21,7 +21,7 @@ Je recherche actuellement un CDI en tant que Data Analyst.
 
 ### 1. Pilotage de la qualité des données clients, véhicules et sociétés
 
-[Voir le projet](.projets/qualite-donnees)
+[Voir le projet](./projets/qualite-donnees/)
 
 Projet réalisé en alternance autour de la qualité des données référentielles.  
 L’objectif était de construire un dashboard Power BI permettant d’identifier les anomalies sur les données clients, véhicules et sociétés : champs manquants, doublons, incohérences et enregistrements orphelins.
