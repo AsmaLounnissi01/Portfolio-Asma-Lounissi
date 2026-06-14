@@ -80,25 +80,26 @@ L’objectif était d’automatiser le pilotage des primes, de fiabiliser les ca
 
 ---
 
-### 4. Automatisation SAV avec NLP, LLM et RAG
+### 4. Analyse de la communication client sur Twitter avec NLP, LLM et Power BI
 
-[Voir le projet](./projets/automatisation-sav-nlp-llm)
-
-Projet de fin d’études réalisé sur un cas client autour de l’automatisation du service après-vente.  
-L’objectif était de concevoir une solution capable de classifier les demandes SAV, analyser les sentiments, identifier les urgences et interroger une base de connaissances en langage naturel.
+Projet de fin d’études autour de l’analyse automatique de tweets clients liés au service après-vente.  
+L’objectif était d’exploiter des données textuelles issues de Twitter afin d’identifier les thèmes récurrents, mesurer le sentiment client, détecter les demandes urgentes et suivre les performances de traitement.
 
 **Points clés :**
 
-- Prétraitement de données textuelles avec Python
-- Classification automatique des demandes
-- Analyse de sentiments et détection d’urgence
-- Mise en place d’un moteur RAG
-- Développement d’un chatbot avec LangChain
-- Interface Streamlit avec dashboards de suivi
-- Déploiement et versioning avec Docker, Git et Azure
+- Nettoyage et préparation de tweets clients avec Python
+- Classification automatique des thèmes de réclamation
+- Analyse de sentiment : positif, neutre, négatif
+- Détection des demandes urgentes et priorisation SAV
+- Suivi des volumes de tweets dans le temps
+- Analyse des délais de traitement et des niveaux de sévérité
+- Création d’un dashboard Power BI interactif
+- Exploration possible via LLM/RAG pour interroger les demandes clients
 
-**Outils :** Python, Pandas, DistilBERT, LangChain, RAG, Streamlit, Docker, Azure  
-**Thèmes :** NLP, LLM, IA générative, automatisation, service client
+**Outils :** Python, Pandas, NLP, LLM, Power BI, DAX, Power Query  
+**Thèmes :** NLP, sentiment analysis, social listening, service client, data visualization
+
+[Voir le projet](./projets/analyse-twitter-sav-nlp/)
 
 ---
 
