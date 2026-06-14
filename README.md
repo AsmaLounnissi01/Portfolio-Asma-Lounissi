@@ -82,7 +82,7 @@ L’objectif était d’automatiser le pilotage des primes, de fiabiliser les ca
 
 ### 4. Analyse de la communication client sur Twitter avec NLP, LLM et Power BI
 
-[Voir le projet](projets/analyse-twitter-sav-nlp/images/)
+[Voir le projet](./projets/analyse-twitter-sav-nlp/)
 
 Projet de fin d’études autour de l’analyse automatique de tweets clients liés au service après-vente.  
 L’objectif était d’exploiter des données textuelles issues de Twitter afin d’identifier les thèmes récurrents, mesurer le sentiment client, détecter les demandes urgentes et suivre les performances de traitement.
