@@ -98,4 +98,4 @@ Il facilite l’identification des données critiques, la priorisation des corre
 - Automatiser l’actualisation des données
 - Ajouter une documentation des règles de contrôle qualité
 
-  ## Pour des raisons de confidentialité, le fichier Power BI complet et les données sources ne sont pas partagés. Les captures présentées ont pour objectif d’illustrer la structure du dashboard, les indicateurs suivis et la démarche d’analyse.
+## Pour des raisons de confidentialité, le fichier Power BI complet et les données sources ne sont pas partagés. Les captures présentées ont pour objectif d’illustrer la structure du dashboard, les indicateurs suivis et la démarche d’analyse.
