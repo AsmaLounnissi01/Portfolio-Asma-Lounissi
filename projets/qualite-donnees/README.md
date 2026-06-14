@@ -55,19 +55,21 @@ Le projet s’appuie sur plusieurs référentiels métier :
 
 ### Vue globale des orphelins
 
-![Dashboard orphelins](images/dashboard-orphelins.png)
+![Dashboard orphelins](images/dashboard-orphelins-floute.png)
+
+Les données détaillées ont été floutées pour respecter la confidentialité. Les indicateurs globaux restent visibles afin d’illustrer la démarche d’analyse.
 
 ### Qualité de donnée client
 
-![Dashboard note client](images/dashboard-note-client.png)
+![Dashboard note client](images/dashboard-note-client-floute.png)
 
 ### Qualité de donnée véhicule
 
-![Dashboard note véhicule](images/dashboard-note-vehicule.png)
+![Dashboard note véhicule](images/dashboard-note-vehicule-floute.png)
 
 ### Qualité de donnée société
 
-![Dashboard note société](images/dashboard-note-societe.png)
+![Dashboard note société](images/dashboard-note-societe-floute.png)
 
 ## Compétences utilisées
 
