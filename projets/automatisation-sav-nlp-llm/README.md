@@ -139,6 +139,3 @@ Le dashboard aide à identifier les pics de réclamations, les thèmes les plus 
 - Mesurer l’évolution du sentiment avant et après traitement
 - Déployer une API de scoring automatique des nouveaux tweets
 
-## Confidentialité
-
-Les données utilisées dans ce projet sont présentées à des fins pédagogiques et analytiques. Les captures servent à illustrer la démarche d’analyse, les indicateurs suivis et la construction du dashboard.
