@@ -87,18 +87,4 @@ Comment analyser la performance commerciale d'une campagne bancaire et identifie
 - Reporting commercial
 - Data quality
 
-## Structure du projet
 
-```text
-performance-commerciale-bancaire/
-├── data/
-│   ├── raw/
-│   └── processed/
-├── docs/
-├── scripts/
-└── README.md
-```
-
-## Prochaine étape
-
-Importer les fichiers préparés dans Power BI et construire la première page du dashboard : **Vue d'ensemble**.
