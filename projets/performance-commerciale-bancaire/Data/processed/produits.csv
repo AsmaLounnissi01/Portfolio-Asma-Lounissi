@@ -1,0 +1,4 @@
+﻿product_id,product_name,product_family,description
+PR001,Depot a terme,Epargne,Produit cible de la campagne marketing
+PR002,Credit immobilier,Credit,Indicateur issu de la variable housing
+PR003,Credit personnel,Credit,Indicateur issu de la variable loan
