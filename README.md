@@ -105,7 +105,7 @@ L’objectif était d’exploiter des données textuelles issues de Twitter afin
 
 ### 5. Dashboard de performance commerciale bancaire
 
-[Voir le projet](./projets/performance-bancaire)
+[Voir le projet](./projets/performance-commerciale-bancaire/)
 
 Projet réalisé lors d’une expérience en tant que Data Analyst dans le secteur bancaire.  
 L’objectif était de suivre les flux transactionnels, la performance commerciale et la qualité des données clients afin d’aider au pilotage local des agences.
