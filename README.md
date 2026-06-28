@@ -107,22 +107,21 @@ L’objectif était d’exploiter des données textuelles issues de Twitter afin
 
 [Voir le projet](./projets/performance-commerciale-bancaire/)
 
-Projet réalisé lors d’une expérience en tant que Data Analyst dans le secteur bancaire.  
-L’objectif était de suivre les flux transactionnels, la performance commerciale et la qualité des données clients afin d’aider au pilotage local des agences.
+Projet personnel réalisé avec Power BI à partir du dataset public Bank Marketing de l’UCI Machine Learning Repository.  
+L’objectif est d’analyser la performance d’une campagne commerciale bancaire, d’identifier les profils clients les plus susceptibles de souscrire à un produit et de suivre la qualité des données utilisées.
 
 **Points clés :**
 
-- Création de tableaux de bord de suivi commercial
-- Analyse descriptive des comportements clients
-- Nettoyage et fiabilisation des bases clients
-- Extraction et transformation de données avec SQL et Excel
-- Automatisation de tâches répétitives avec VBA
+- Analyse de 45 211 interactions commerciales
+- Suivi des souscriptions et du taux de conversion
+- Analyse du portefeuille clients par âge, profession, éducation et crédits existants
+- Comparaison des performances par agence, région et canal de contact
+- Analyse de l’impact de l’intensité de campagne sur la conversion
+- Contrôle de la qualité des données et identification des valeurs inconnues
+- Création d’un dashboard Power BI interactif en 4 pages
 
-**Outils :** Power BI,Excel, VBA  
-**Thèmes :** Banque, reporting, performance commerciale, data cleaning
-
----
-
+**Outils :** Power BI, DAX, Power Query, Python, Excel  
+**Thèmes :** Banque, performance commerciale, segmentation client, reporting, data quality
 ## Projets personnels à construire
 
 ### 6. Analyse RH : turnover et absentéisme
