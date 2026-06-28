@@ -118,7 +118,7 @@ L’objectif était de suivre les flux transactionnels, la performance commercia
 - Extraction et transformation de données avec SQL et Excel
 - Automatisation de tâches répétitives avec VBA
 
-**Outils :** Power BI, SQL, Excel, VBA  
+**Outils :** Power BI,Excel, VBA  
 **Thèmes :** Banque, reporting, performance commerciale, data cleaning
 
 ---
