@@ -38,21 +38,23 @@ Comment analyser la performance commerciale d'une campagne bancaire et identifie
 
   ## Aperçu du dashboard
 
+## Aperçu du dashboard
+
 ### Vue d’ensemble
 
-![Vue d’ensemble](images/vue-ensemble.png)
+![Vue d’ensemble](images/Vue%20d'ensemble.png)
 
 ### Analyse du portefeuille clients
 
-![Analyse du portefeuille clients](images/analyse-clients.png)
+![Analyse du portefeuille clients](images/Analyse%20du%20portefeuille%20clients.png)
 
 ### Performance commerciale
 
-![Performance commerciale](images/performance-commerciale.png)
+![Performance commerciale](images/Performance%20commerciale.png)
 
 ### Qualité des données
 
-![Qualité des données](images/qualite-donnees.png)
+![Qualité des données](images/Qualité%20des%20données.png)
 
 ## Tables préparées
 
