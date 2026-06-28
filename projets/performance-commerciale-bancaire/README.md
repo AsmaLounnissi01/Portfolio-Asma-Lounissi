@@ -36,6 +36,24 @@ Comment analyser la performance commerciale d'une campagne bancaire et identifie
 - Solde moyen client : 1 362,27
 - Durée moyenne d'un contact : 4,3 minutes
 
+  ## Aperçu du dashboard
+
+### Vue d’ensemble
+
+![Vue d’ensemble](images/vue-ensemble.png)
+
+### Analyse du portefeuille clients
+
+![Analyse du portefeuille clients](images/analyse-clients.png)
+
+### Performance commerciale
+
+![Performance commerciale](images/performance-commerciale.png)
+
+### Qualité des données
+
+![Qualité des données](images/qualite-donnees.png)
+
 ## Tables préparées
 
 - `contacts_campagne_bancaire.csv`
