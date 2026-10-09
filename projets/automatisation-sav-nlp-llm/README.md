@@ -6,7 +6,6 @@ Projet de fin d’études (HETIC, Master Data & IA) sur un cas client Free Mobil
 
 Les clients utilisent Twitter pour signaler une panne, contester une facture ou demander de l’aide. Ces messages arrivent en grand nombre, sans structure, et doivent être lus un par un par les équipes SAV. L’objectif du projet était d’automatiser toute la chaîne : nettoyer les tweets, les classer avec un LLM, proposer une réponse, puis donner aux équipes des outils pour piloter et traiter les demandes.
 
-
 ## Problématique
 
 Comment transformer des milliers de tweets clients non structurés en demandes classées, priorisées et routées vers la bonne équipe, avec une réponse déjà proposée ?
@@ -94,26 +93,45 @@ Une interface Streamlit permet de lancer tout le traitement sans écrire de code
 3. Choix de la période et lancement de l’analyse LLM (Mistral ou Ollama)
 4. Téléchargement du fichier enrichi
 
-<!-- CAPTURE : interface du pipeline Streamlit (import + prétraitement) → images/streamlit-pipeline.png -->
+![Interface du pipeline Streamlit](images/streamlit-pipeline.png)
+
 <!-- CAPTURE : étape « Traitement LLM » avec résultats → images/streamlit-traitement-llm.png -->
 
 ## 5. Application SAV Streamlit : 3 écrans métier
 
-Une seconde application exploite les tweets analysés, avec un écran par profil :
+Une seconde application exploite les 2 989 tweets analysés, avec un écran par profil.
+
+![Accueil de l’application SAV](images/streamlit-accueil.png)
 
 **Analyste**
 - Filtres par sentiment, thème, période et seuil de priorité
 - Visualisations interactives (Altair) : thèmes, tendances, co-occurrences
 - Export CSV et JSON
 
-<!-- CAPTURE : écran Analyste → images/streamlit-analyste.png -->
+![Analyste : indicateurs et résultats détaillés](images/streamlit-analyste-resultats.png)
+
+![Analyste : volumes par thème](images/streamlit-analyste-themes.png)
+
+![Analyste : timeline et répartition horaire](images/streamlit-analyste-temps.png)
+
+![Analyste : alertes automatiques](images/streamlit-analyste-alertes.png)
 
 **Manager**
 - KPI : volume de tweets, % urgents, % négatifs, auteurs uniques, urgence moyenne, tickets ouverts
 - Onglets Vue globale, Alertes, Équipe
 - Suivi de la charge par équipe
 
-<!-- CAPTURE : tableau de bord Manager → images/streamlit-manager.png -->
+![Manager : indicateurs clés](images/streamlit-manager-kpi.png)
+
+![Manager : volume quotidien, cumulé et auteurs les plus actifs](images/streamlit-manager-activite.png)
+
+![Manager : sentiment et urgence vs sévérité](images/streamlit-manager-sentiment.png)
+
+![Manager : statuts des tickets et heatmap jour × heure](images/streamlit-manager-operations.png)
+
+![Manager : volumes et urgence par équipe](images/streamlit-manager-equipes.png)
+
+![Manager : répartition des urgences et thèmes en progression](images/streamlit-manager-insights.png)
 
 **Agent SAV**
 - File d’attente triée par un **score de priorité** (urgence 45 %, gravité 40 %, sentiment négatif 15 %)
@@ -121,7 +139,9 @@ Une seconde application exploite les tweets analysés, avec un écran par profil
 - Actions rapides : répondre, réaffecter, clore
 - Historique des modifications sauvegardé
 
-<!-- CAPTURE : file d’attente Agent SAV → images/streamlit-agent.png -->
+![Agent SAV : indicateurs](images/streamlit-agent-kpi.png)
+
+![Agent SAV : file d’attente priorisée et actions rapides](images/streamlit-agent-file.png)
 
 ## 6. Chatbot RAG
 
