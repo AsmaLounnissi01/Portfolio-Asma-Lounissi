@@ -87,7 +87,7 @@ L’objectif était d’automatiser le pilotage des primes, de fiabiliser les ca
 
 [Voir le projet](./projets/automatisation-sav-nlp-llm/)
 
-Projet de fin d’études réalisé en équipe sur un cas client Free Mobile.  
+Projet de fin d’études sur un cas client Free Mobile.  
 L’objectif était d’automatiser le traitement des tweets clients : nettoyage, classification par un LLM, suggestion de réponse, routage vers la bonne équipe, puis pilotage dans des applications Streamlit et un dashboard Power BI.
 
 **Points clés :**

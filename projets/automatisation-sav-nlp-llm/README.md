@@ -2,7 +2,7 @@
 
 ## Contexte
 
-Projet de fin d’études (HETIC, Master Data & IA), réalisé en équipe sur un cas client Free Mobile.
+Projet de fin d’études (HETIC, Master Data & IA) sur un cas client Free Mobile.
 
 Les clients utilisent Twitter pour signaler une panne, contester une facture ou demander de l’aide. Ces messages arrivent en grand nombre, sans structure, et doivent être lus un par un par les équipes SAV. L’objectif du projet était d’automatiser toute la chaîne : nettoyer les tweets, les classer avec un LLM, proposer une réponse, puis donner aux équipes des outils pour piloter et traiter les demandes.
 
