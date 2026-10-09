@@ -1,93 +1,143 @@
-# Analyse de la communication client sur Twitter avec NLP, LLM et Power BI
+# Automatisation du SAV Free Mobile : analyse des tweets clients avec NLP, LLM, RAG, Streamlit et Power BI
 
 ## Contexte
 
-Dans le cadre de mon projet de fin d’études, j’ai travaillé sur l’analyse automatique de tweets clients liés au service après-vente.
+Projet de fin d’études (HETIC, Master Data & IA), réalisé en équipe sur un cas client Free Mobile.
 
-Les réseaux sociaux sont devenus un canal important d’expression client. Les utilisateurs y partagent leurs réclamations, frustrations, demandes d’aide ou retours d’expérience. L’objectif du projet était d’exploiter ces messages afin de mieux comprendre les irritants clients, détecter les demandes urgentes et aider les équipes SAV à prioriser les actions.
+Les clients utilisent Twitter pour signaler une panne, contester une facture ou demander de l’aide. Ces messages arrivent en grand nombre, sans structure, et doivent être lus un par un par les équipes SAV. L’objectif du projet était d’automatiser toute la chaîne : nettoyer les tweets, les classer avec un LLM, proposer une réponse, puis donner aux équipes des outils pour piloter et traiter les demandes.
+
+Code source : [LLMAnalyzer-SAV-Tweets sur GitHub](https://github.com/Imadbouchareb/LLMAnalyzer-SAV-Tweets)
 
 ## Problématique
 
-Comment analyser automatiquement des tweets clients afin d’identifier les sujets de réclamation, mesurer le sentiment client et détecter les demandes urgentes à traiter en priorité ?
+Comment transformer des milliers de tweets clients non structurés en demandes classées, priorisées et routées vers la bonne équipe, avec une réponse déjà proposée ?
 
-## Objectifs du projet
+## Résultats clés
 
-- Collecter et préparer des tweets clients
-- Nettoyer les données textuelles pour l’analyse NLP
-- Identifier les thèmes récurrents des réclamations
-- Analyser le sentiment des messages : négatif, neutre, positif
-- Détecter les tweets urgents
-- Analyser les volumes dans le temps
-- Suivre les délais et niveaux de sévérité
-- Construire un dashboard Power BI de pilotage
-- Préparer une base exploitable pour une approche LLM/RAG
+- **6 310** tweets traités par le pipeline
+- **2 989** tweets clients identifiés après filtrage et déduplication
+- **33,7 %** de demandes détectées comme urgentes
+- Sentiment moyen : **-0,78**
+- Base de connaissances de **4 755** modèles de réponses utilisée pour le RAG
+- **3 applications** livrées : pipeline de traitement, application SAV multi-profils, chatbot
 
-## Données analysées
+## Architecture de la solution
 
-Le projet s’appuie sur un jeu de données de tweets clients nettoyés et enrichis avec plusieurs variables d’analyse :
+```
+Tweets bruts (CSV)
+   │
+   ├─ 1. Prétraitement Python ........ nettoyage, filtrage, déduplication
+   ├─ 2. Enrichissement RAG .......... recherche sémantique dans la base de réponses
+   ├─ 3. Classification LLM .......... thème, sentiment, urgence, gravité, résumé, réponse, équipe
+   ├─ 4. Export CSV standardisé ...... 16 colonnes
+   │
+   ├─ Application SAV Streamlit ...... écrans Analyste, Manager, Agent SAV
+   ├─ Chatbot RAG .................... questions clients en langage naturel
+   └─ Dashboard Power BI ............. pilotage des indicateurs
+```
 
-- Date du tweet
-- Texte du tweet
-- Thème principal
-- Sentiment
-- Niveau d’urgence
-- Niveau de sévérité
-- Routing team
-- Ville détectée
-- Indicateurs temporels
-- Statut de traitement
+<!-- CAPTURE (optionnel) : schéma d’architecture → images/architecture.png -->
 
-## Indicateurs clés
+---
 
-- Nombre total de tweets analysés : 6 310
-- Tweets clients identifiés : 2 989
-- Sentiment moyen : -0,78
-- Taux d’urgence : 33,7 %
-- Répartition des tweets par sentiment
-- Volume de tweets par mois
-- Volume par routing team
-- Répartition par niveau de sévérité
-- Analyse des thèmes les plus fréquents
-- Suivi des délais de traitement
+## 1. Automatisation du prétraitement
 
-## Méthodologie
+Un script Python prépare automatiquement les tweets avant l’analyse :
 
-### 1. Préparation des données
+- Correction de l’encodage et normalisation du texte (accents, emojis, liens, mentions)
+- Suppression des réponses publiées par les comptes Free pour ne garder que les messages clients
+- Détection de la langue
+- Déduplication des tweets
+- Premiers indicateurs par règles : mots-clés d’urgence, émotions, intentions
 
-Les tweets ont été nettoyés afin de supprimer les éléments inutiles pour l’analyse :
+Résultat : sur 6 310 tweets, 2 989 messages clients exploitables.
 
-- caractères spéciaux
-- liens
-- mentions
-- doublons
-- textes incomplets
-- valeurs manquantes
+## 2. Classification avec NLP et LLM
 
-### 2. Analyse NLP
+Chaque tweet client est envoyé à un LLM (**Mistral AI** via API, ou **Ollama** en local) avec un prompt structuré. Le modèle renvoie un JSON validé avec Pydantic :
 
-Une analyse textuelle a été réalisée pour extraire les informations utiles :
+| Champ | Contenu |
+|---|---|
+| Thème | Problème réseau, Facturation, Freebox, Portabilité, Ligne mobile, Résiliation, SAV, Livraison, Autre |
+| Sentiment | positif, neutre, négatif |
+| Urgence | score de 0 à 3 |
+| Gravité | score de 0 à 3 |
+| Résumé | une phrase de 20 mots maximum |
+| Réponse suggérée | réponse personnalisée prête à publier |
+| Équipe de routage | SAV Mobile, Facturation, Technique, Freebox, Portabilité |
+| Escalade | intervention humaine nécessaire ou non |
 
-- détection des thèmes principaux
-- analyse de sentiment
-- classification des demandes
-- identification des messages urgents
-- extraction des mots fréquents
+**Industrialisation du traitement :**
 
-### 3. Scoring et enrichissement
+- Orchestration avec **LangChain**
+- Traitement en parallèle (multithreading) avec limitation du nombre d’appels par minute
+- **Cache SQLite** : un tweet déjà analysé n’est pas renvoyé au LLM, ce qui réduit le coût et le temps
+- Normalisation des sorties (thèmes et sentiments harmonisés) et valeurs par défaut en cas d’erreur
+- Export final en CSV standardisé de 16 colonnes, prêt pour l’application et Power BI
 
-Les tweets ont ensuite été enrichis avec des indicateurs permettant une lecture métier :
+## 3. Enrichissement RAG
 
-- score de sentiment
-- indicateur d’urgence
-- niveau de sévérité
-- catégorie de réclamation
-- équipe de routage
+Avant la classification, chaque tweet est enrichi avec le contexte le plus proche dans une base de 4 755 modèles de réponses SAV :
 
-### 4. Visualisation Power BI
+- Encodage des textes avec un modèle **Sentence-Transformers** (DistilBERT multilingue)
+- Recherche par similarité cosinus (Top-k)
+- Injection du contexte trouvé dans le prompt du LLM
+- Mise en cache des embeddings pour ne pas les recalculer
 
-Un dashboard interactif a été construit pour suivre les indicateurs clés et faciliter l’analyse par les équipes métier.
+Le LLM s’appuie ainsi sur des réponses validées, ce qui rend ses suggestions plus pertinentes et plus cohérentes avec le ton de Free.
 
-## Aperçu du dashboard
+## 4. Application Streamlit : le pipeline en quelques clics
+
+Une interface Streamlit permet de lancer tout le traitement sans écrire de code :
+
+1. Import du fichier CSV de tweets
+2. Lancement du prétraitement
+3. Choix de la période et lancement de l’analyse LLM (Mistral ou Ollama)
+4. Téléchargement du fichier enrichi
+
+<!-- CAPTURE : interface du pipeline Streamlit (import + prétraitement) → images/streamlit-pipeline.png -->
+<!-- CAPTURE : étape « Traitement LLM » avec résultats → images/streamlit-traitement-llm.png -->
+
+## 5. Application SAV Streamlit : 3 écrans métier
+
+Une seconde application exploite les tweets analysés, avec un écran par profil :
+
+**Analyste**
+- Filtres par sentiment, thème, période et seuil de priorité
+- Visualisations interactives (Altair) : thèmes, tendances, co-occurrences
+- Export CSV et JSON
+
+<!-- CAPTURE : écran Analyste → images/streamlit-analyste.png -->
+
+**Manager**
+- KPI : volume de tweets, % urgents, % négatifs, auteurs uniques, urgence moyenne, tickets ouverts
+- Onglets Vue globale, Alertes, Équipe
+- Suivi de la charge par équipe
+
+<!-- CAPTURE : tableau de bord Manager → images/streamlit-manager.png -->
+
+**Agent SAV**
+- File d’attente triée par un **score de priorité** (urgence 45 %, gravité 40 %, sentiment négatif 15 %)
+- Réponse suggérée par le LLM, modifiable avant envoi
+- Actions rapides : répondre, réaffecter, clore
+- Historique des modifications sauvegardé
+
+<!-- CAPTURE : file d’attente Agent SAV → images/streamlit-agent.png -->
+
+## 6. Chatbot RAG
+
+Un assistant conversationnel répond aux questions des clients Free Mobile :
+
+- Base vectorielle **ChromaDB** construite à partir de questions-réponses Free Mobile
+- Embeddings **Ollama** (mxbai-embed-large)
+- Génération avec **Llama 3.3 70B** via Groq, ou un modèle local Ollama
+- Interface de chat Streamlit
+
+<!-- CAPTURE : conversation avec le chatbot → images/chatbot.png -->
+
+## 7. Dashboard Power BI
+
+Les résultats du pipeline alimentent un dashboard Power BI de pilotage du SAV.
 
 ### Vue d’ensemble
 
@@ -99,43 +149,38 @@ Un dashboard interactif a été construit pour suivre les indicateurs clés et f
 
 ### Urgence et performance
 
-![Urgence et performance](images/dashboard-urgence-performance.png)
+![Urgence et performance](images/dashboard-urgence-performance-floute.png)
 
 ### Analyse de sentiment
 
 ![Analyse de sentiment](images/dashboard-analyse-sentiment.png)
 
-### Doublon urgence et performance
+### Doublons, urgence et performance
 
-![Doublon urgence performance](images/dashboard-doublon-urgence-performance.png)
+![Doublons, urgence et performance](images/dashboard-doublon-urgence-performance.png)
 
-## Compétences utilisées
+---
 
-- Python
-- Pandas
-- NLP
-- Analyse de sentiment
-- Classification de texte
-- Power BI
-- DAX
-- Power Query
-- Data visualization
-- Analyse métier
-- Reporting SAV
-- LLM / RAG
+## Stack technique
 
-## Résultats et impact
+- **Python** : Pandas, NumPy, Pydantic
+- **NLP / LLM** : Mistral AI, Ollama, LangChain, Llama 3.3 (Groq)
+- **RAG** : Sentence-Transformers (DistilBERT multilingue), ChromaDB, PyTorch
+- **Applications** : Streamlit, Altair, Plotly
+- **Données** : SQLite (cache), CSV
+- **BI** : Power BI, DAX, Power Query
+- **Outils** : Git, GitHub
 
-Ce projet permet de transformer des tweets clients non structurés en indicateurs exploitables pour le pilotage du service après-vente.
+## Impact
 
-Le dashboard aide à identifier les pics de réclamations, les thèmes les plus fréquents, les messages urgents et les niveaux de sentiment négatif. Il permet également de mieux comprendre les irritants clients et de prioriser les demandes à fort impact.
+- Les tweets clients ne sont plus lus un par un : ils arrivent classés, résumés et priorisés.
+- Les demandes urgentes remontent en tête de la file d’attente des agents.
+- Chaque demande est routée vers la bonne équipe, avec une réponse déjà proposée.
+- Les managers suivent en continu les volumes, les urgences et le sentiment client.
 
-## Améliorations possibles
+## Pistes d’amélioration
 
-- Ajouter un chatbot permettant d’interroger les tweets en langage naturel
-- Connecter le dashboard à une source de données actualisée automatiquement
-- Améliorer la classification des thèmes avec un modèle NLP plus avancé
-- Ajouter un suivi des réponses apportées aux clients
-- Mesurer l’évolution du sentiment avant et après traitement
-- Déployer une API de scoring automatique des nouveaux tweets
-
+- Connecter le pipeline à une source de tweets en temps réel
+- Mesurer la qualité des classifications sur un échantillon annoté
+- Déployer l’application SAV et le chatbot en ligne
+- Suivre l’évolution du sentiment avant et après réponse

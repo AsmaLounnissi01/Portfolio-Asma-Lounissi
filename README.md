@@ -83,26 +83,26 @@ L’objectif était d’automatiser le pilotage des primes, de fiabiliser les ca
 
 ---
 
-### 4. Analyse de la communication client sur Twitter avec NLP, LLM et Power BI
+### 4. Automatisation du SAV Free Mobile avec NLP, LLM, RAG et Streamlit
 
 [Voir le projet](./projets/automatisation-sav-nlp-llm/)
 
-Projet de fin d’études autour de l’analyse automatique de tweets clients liés au service après-vente.  
-L’objectif était d’exploiter des données textuelles issues de Twitter afin d’identifier les thèmes récurrents, mesurer le sentiment client, détecter les demandes urgentes et suivre les performances de traitement.
+Projet de fin d’études réalisé en équipe sur un cas client Free Mobile.  
+L’objectif était d’automatiser le traitement des tweets clients : nettoyage, classification par un LLM, suggestion de réponse, routage vers la bonne équipe, puis pilotage dans des applications Streamlit et un dashboard Power BI.
 
 **Points clés :**
 
-- Nettoyage et préparation de tweets clients avec Python
-- Classification automatique des thèmes de réclamation
-- Analyse de sentiment : positif, neutre, négatif
-- Détection des demandes urgentes et priorisation SAV
-- Suivi des volumes de tweets dans le temps
-- Analyse des délais de traitement et des niveaux de sévérité
-- Création d’un dashboard Power BI interactif
-- Exploration possible via LLM/RAG pour interroger les demandes clients
+- Pipeline Python automatisé : nettoyage, filtrage et déduplication de 6 310 tweets (2 989 tweets clients)
+- Classification par LLM (Mistral AI / Ollama) : thème, sentiment, urgence, gravité, résumé, réponse suggérée et équipe de routage
+- Enrichissement RAG avec une base de 4 755 modèles de réponses (Sentence-Transformers)
+- Traitement en parallèle avec cache SQLite pour limiter le coût et le temps des appels LLM
+- Application Streamlit pour lancer le pipeline sans code
+- Application SAV Streamlit à 3 écrans : Analyste, Manager, Agent SAV avec file d’attente priorisée
+- Chatbot RAG (ChromaDB, Llama 3.3) pour répondre aux questions clients
+- Dashboard Power BI : 33,7 % de demandes urgentes détectées, suivi du sentiment et des délais
 
-**Outils :** Python, Pandas, NLP, LLM, Power BI, DAX, Power Query  
-**Thèmes :** NLP, sentiment analysis, social listening, service client, data visualization
+**Outils :** Python, Pandas, LangChain, Mistral AI, Ollama, Sentence-Transformers, ChromaDB, Streamlit, Power BI, DAX  
+**Thèmes :** NLP, LLM, RAG, automatisation, service client, data visualization
 
 ---
 
