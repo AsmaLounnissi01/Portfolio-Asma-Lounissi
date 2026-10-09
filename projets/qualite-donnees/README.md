@@ -2,100 +2,121 @@
 
 ## Contexte
 
-Dans le cadre de mon alternance en tant que Data Analyst, j’ai travaillé sur un projet de suivi de la qualité des données référentielles autour de trois périmètres métier : clients, véhicules et sociétés.
+Chez Mercedes-Benz France, j’ai conçu un dashboard Power BI de suivi de la qualité des données référentielles du réseau après-vente : clients, véhicules, sociétés et ordres de réparation.
 
-L’objectif était de permettre aux équipes métier d’identifier rapidement les anomalies présentes dans les bases de données, comme les champs manquants, les incohérences, les doublons ou les enregistrements orphelins.
+Ces bases alimentent le CRM, la facturation et les campagnes marketing. Des fiches incomplètes, en double ou sans rattachement faussent les relances clients, les ciblages et le suivi d’activité. L’objectif était de mesurer ces anomalies, de les localiser par site et de donner aux équipes métier une liste concrète des fiches à corriger.
 
 ## Problématique
 
-Comment mesurer la qualité des données référentielles et aider les équipes métier à prioriser les corrections à effectuer ?
+Comment mesurer la qualité de plusieurs référentiels volumineux et aider les équipes métier à prioriser les corrections ?
 
-## Objectifs du projet
+## Résultats clés
 
-- Suivre la qualité des données clients, véhicules et sociétés
-- Identifier les données manquantes ou non conformes
-- Détecter les véhicules et sociétés orphelins
-- Mettre en place des scores qualité par référentiel
-- Visualiser les anomalies par site et par type de donnée
-- Faciliter la priorisation des corrections métier
+- **89 037** clients, **571 903** véhicules et **113 384** sociétés audités
+- **146 306** véhicules orphelins, soit **24,88 %**, sans aucun client rattaché
+- **34 091** sociétés orphelines, soit **30,07 %**
+- **6 030** véhicules en double (1,05 %), **2 114** sociétés en double (1,87 %) et **573** clients en double
+- Notes qualité moyennes : **5,04 / 10** pour les clients, **7,64 / 10** pour les véhicules, **6,37 / 10** pour les sociétés
+- **58 597** ordres de réparation contrôlés sur leur cohérence avec les véhicules, la comptabilité et le CRM
 
-## Données analysées
+## Démarche
 
-Le projet s’appuie sur plusieurs référentiels métier :
+### 1. Définition des règles de contrôle
 
-- Données clients
-- Données véhicules
-- Données sociétés
-- Relations entre véhicules, clients et sociétés
-- Données de sites
-- Données de création et de modification
+Pour chaque référentiel, j’ai défini avec les équipes métier les champs critiques et la règle qui les rend conformes (OK) ou non conformes (NOK) :
 
-## Indicateurs clés
+| Référentiel | Champs contrôlés |
+|---|---|
+| Client | Nom, prénom, civilité, adresse, code postal, téléphone, email |
+| Véhicule | Immatriculation, châssis, marque, date d’immatriculation, contrôle technique, rattachement à un client |
+| Société | Nom, adresse, code postal, téléphone, rattachement |
 
-- Nombre total de clients : 89 037
-- Nombre total de véhicules : 571 903
-- Nombre total de sociétés : 113 384
-- Véhicules orphelins : 146 306, soit 24,88 %
-- Sociétés orphelines : 34 091, soit 30,07 %
-- Score qualité moyen client : 5,04 / 10
-- Score qualité moyen véhicule : 7,64 / 10
-- Score qualité moyen société : 6,37 / 10
+### 2. Calcul d’une note qualité par fiche
 
-## Réalisations
+Chaque fiche reçoit une note globale sur 10, calculée en DAX à partir du nombre de champs conformes. Cette note permet de comparer les référentiels entre eux et de trier les fiches de la plus dégradée à la plus complète.
 
-- Analyse des référentiels clients, véhicules et sociétés
-- Définition de règles de contrôle qualité par champ métier
-- Création d’indicateurs de complétude et de conformité
-- Identification des données orphelines
-- Mise en place de filtres par site
-- Création de dashboards Power BI interactifs
-- Construction de vues détaillées pour faciliter les corrections
+### 3. Détection des orphelins et des doublons
+
+- **Orphelins** : véhicules sans client rattaché, sociétés sans lien actif
+- **Doublons** : construction d’une clé de rapprochement (nom + téléphone pour les clients, nom + code postal pour les sociétés, immatriculation pour les véhicules) pour repérer les fiches créées plusieurs fois
+- **Rattachements** : comptage du nombre de clients liés à chaque véhicule (de 0 à 3)
+
+### 4. Suivi dans le temps et par site
+
+- Filtres par site sur toutes les pages, pour que chaque concession voie ses propres anomalies
+- Page **J-7** qui isole les fiches créées ou modifiées dans les 7 derniers jours, pour corriger les erreurs dès leur saisie
+- Délai moyen entre deux modifications d’une fiche, pour repérer les données qui ne sont plus mises à jour
+
+### 5. Restitution Power BI
+
+Un rapport de 10 pages, avec des indicateurs en haut et la liste détaillée des fiches à corriger en bas, exportable par les équipes.
 
 ## Aperçu du dashboard
 
-### Vue globale des orphelins
+Les données nominatives (noms, immatriculations, téléphones, sociétés) ont été floutées pour respecter la confidentialité. Les indicateurs globaux restent visibles.
 
-![Dashboard orphelins](images/dashboard-orphelins-floute.png)
+### Véhicules et sociétés orphelins
 
-Les données détaillées ont été floutées pour respecter la confidentialité. Les indicateurs globaux restent visibles afin d’illustrer la démarche d’analyse.
+![Orphelins véhicules et sociétés](images/dashboard-orphelins.png)
 
-### Qualité de donnée client
+### Qualité des données clients
 
-![Dashboard note client](images/dashboard-note-client-floute.png)
+![Qualité de donnée client](images/dashboard-note-client.png)
 
-### Qualité de donnée véhicule
+### Qualité des données véhicules
 
-![Dashboard note véhicule](images/dashboard-note-vehicule-floute.png)
+![Qualité de donnée véhicule](images/dashboard-note-vehicule.png)
 
-### Qualité de donnée société
+### Qualité des données sociétés
 
-![Dashboard note société](images/dashboard-note-societe-floute.png)
+![Qualité de donnée société](images/dashboard-note-societe.png)
+
+### Rattachement des véhicules aux clients
+
+![Véhicules rattachés de 0 à 3 clients](images/dashboard-rattachement-vehicule-client.png)
+
+### Doublons véhicules
+
+![Véhicules avec doublons](images/dashboard-doublons-vehicules.png)
+
+### Doublons sociétés
+
+![Sociétés avec doublons](images/dashboard-doublons-societes.png)
+
+### Doublons clients
+
+![Clients avec doublons](images/dashboard-doublons-clients.png)
+
+### Suivi des nouvelles saisies (J-7)
+
+![Qualité de donnée J-7](images/dashboard-suivi-j7.png)
+
+### Cohérence des ordres de réparation
+
+Contrôle des 58 597 en-têtes d’ordres de réparation : sont-ils bien reliés à un véhicule, à un compte comptable et à un client du CRM ?
+
+![Ordres de réparation](images/dashboard-ordres-reparation.png)
 
 ## Compétences utilisées
 
-- Power BI
-- DAX
-- Power Query
+- Power BI : DAX, Power Query, modélisation
 - Azure Data Factory
-- Data Quality
-- Data Cleaning
-- Data Visualization
-- Analyse métier
-- Création de KPI
-- Reporting décisionnel
+- Data quality : règles de contrôle, complétude, doublons, orphelins
+- Définition de KPI avec les équipes métier
+- Data visualization et reporting décisionnel
 
 ## Résultats et impact
 
-Ce dashboard a permis de centraliser le suivi de la qualité des données et de donner aux équipes métier une vision claire des anomalies à traiter.
-
-Il facilite l’identification des données critiques, la priorisation des corrections et le suivi de la fiabilité des référentiels dans le temps.
+- Une vision unique et chiffrée de la qualité des référentiels, partagée avec les équipes métier
+- Des listes de fiches à corriger, filtrables par site, au lieu d’un constat global
+- Une priorisation claire : un véhicule sur quatre sans client et près d’une société sur trois orpheline
+- Un suivi J-7 pour corriger les erreurs dès la saisie plutôt qu’après coup
 
 ## Améliorations possibles
 
-- Ajouter un suivi de l’évolution des anomalies dans le temps
-- Mettre en place des alertes automatiques sur les seuils critiques
-- Créer un score qualité global par site
-- Automatiser l’actualisation des données
-- Ajouter une documentation des règles de contrôle qualité
+- Suivre l’évolution des notes qualité mois par mois
+- Envoyer des alertes automatiques quand un site dépasse un seuil d’anomalies
+- Calculer un score qualité global par site
+- Documenter les règles de contrôle dans un dictionnaire de données
 
-## Pour des raisons de confidentialité, le fichier Power BI complet et les données sources ne sont pas partagés. Les captures présentées ont pour objectif d’illustrer la structure du dashboard, les indicateurs suivis et la démarche d’analyse.
+> Pour des raisons de confidentialité, le fichier Power BI et les données sources ne sont pas partagés.

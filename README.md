@@ -23,18 +23,18 @@ Je recherche actuellement un CDI en tant que Data Analyst.
 
 [Voir le projet](./projets/qualite-donnees/)
 
-Projet réalisé en alternance autour de la qualité des données référentielles.  
-L’objectif était de construire un dashboard Power BI permettant d’identifier les anomalies sur les données clients, véhicules et sociétés : champs manquants, doublons, incohérences et enregistrements orphelins.
+Projet réalisé chez Mercedes-Benz France sur les référentiels du réseau après-vente.  
+L’objectif était de mesurer les anomalies (champs manquants, doublons, fiches orphelines), de les localiser par site et de fournir aux équipes métier la liste des fiches à corriger.
 
 **Points clés :**
 
 - Audit de 89 037 clients, 571 903 véhicules et 113 384 sociétés
-- Près de 30 % d’anomalies identifiées sur les champs critiques
-- Audit qualité sur les champs métier critiques
-- Détection des véhicules et sociétés orphelins
-- Mise en place de scores qualité par référentiel
-- Création de tableaux de bord Power BI interactifs avec filtres par site
-- Aide à la priorisation des corrections par les équipes métier
+- Règles de contrôle OK / NOK par champ critique et note qualité sur 10 par fiche
+- 24,88 % de véhicules et 30,07 % de sociétés orphelins identifiés
+- Détection des doublons : 6 030 véhicules, 2 114 sociétés, 573 clients
+- Contrôle de cohérence de 58 597 ordres de réparation (véhicule, comptabilité, CRM)
+- Suivi J-7 des nouvelles saisies et filtres par site
+- Dashboard Power BI de 10 pages avec listes de corrections
 
 **Outils :** Power BI, DAX, Power Query, Azure Data Factory, Excel  
 **Thèmes :** Data Quality, BI, reporting, référentiels métier
