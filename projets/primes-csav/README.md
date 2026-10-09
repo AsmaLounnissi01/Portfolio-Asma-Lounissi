@@ -2,7 +2,7 @@
 
 ## Contexte
 
-Dans le cadre de mon alternance en tant que Data Analyst, j’ai travaillé sur un prototype de dashboard Power BI destiné au suivi des primes incitatives des conseillers CSAV.
+Dans le cadre de mon alternance en tant que Data Analyst, j’ai travaillé sur un prototype de dashboard Power BI destiné au suivi des primes incitatives des conseillers service après-vente (CSAV).
 
 L’objectif était de centraliser les règles de calcul, automatiser le suivi des primes et fournir une vision claire des montants par collaborateur, site, mois et type d’activité.
 

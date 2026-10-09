@@ -79,7 +79,7 @@ Comment analyser et fiabiliser les populations clients et véhicules disponibles
 - Power BI
 - Power Query
 - DAX
-- SQL
+- Azure Data Factory
 - Analyse marketing
 - Segmentation client
 - Reporting

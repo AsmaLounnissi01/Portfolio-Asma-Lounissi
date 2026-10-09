@@ -1,4 +1,4 @@
-# Portfolio-Asma-Lounissi
+# Asma Lounissi – Data Analyst
 ## À propos
 
 Data Analyst diplômée d’un Master Data & Intelligence Artificielle, je transforme les données complexes en analyses claires, indicateurs fiables et tableaux de bord interactifs pour accompagner la prise de décision métier.
@@ -28,14 +28,15 @@ L’objectif était de construire un dashboard Power BI permettant d’identifie
 
 **Points clés :**
 
-- Analyse de plus de 770 000 enregistrements clients, véhicules et sociétés
+- Audit de 89 037 clients, 571 903 véhicules et 113 384 sociétés
+- Près de 30 % d’anomalies identifiées sur les champs critiques
 - Audit qualité sur les champs métier critiques
 - Détection des véhicules et sociétés orphelins
 - Mise en place de scores qualité par référentiel
 - Création de tableaux de bord Power BI interactifs avec filtres par site
 - Aide à la priorisation des corrections par les équipes métier
 
-**Outils :** Power BI, DAX, Power Query, SQL, Excel  
+**Outils :** Power BI, DAX, Power Query, Azure Data Factory, Excel  
 **Thèmes :** Data Quality, BI, reporting, référentiels métier
 
 ---
@@ -50,21 +51,23 @@ L’objectif était d’aider les équipes marketing à mieux comprendre la rép
 **Points clés :**
 
 - Analyse des volumes par canal de communication
+- Segmentation de 79 336 clients et 99 000 véhicules
+- Ciblage de campagnes de 21 961 emails et 24 179 SMS
 - Segmentation par zone géographique
 - Suivi des performances marketing
 - Création d’indicateurs de pilotage
 - Restitution des résultats sous forme de dashboard
 
-**Outils :** Power BI, SQL, Excel  
+**Outils :** Power BI, Power Query, Excel  
 **Thèmes :** Analyse marketing, segmentation, reporting, datavisualisation
 
 ---
 
-### 3. Calcul et suivi des primes CSAV
+### 3. Calcul et suivi des primes des conseillers après-vente (CSAV)
 
 [Voir le projet](./projets/primes-csav)
 
-Projet réalisé en alternance autour du calcul et du suivi des primes liées à l’activité CSAV.  
+Projet réalisé en alternance autour du calcul et du suivi des primes incitatives des CSAV (conseillers service après-vente).  
 L’objectif était d’automatiser le pilotage des primes, de fiabiliser les calculs et de fournir une vision claire aux équipes concernées.
 
 **Points clés :**
@@ -122,58 +125,22 @@ L’objectif est d’analyser la performance d’une campagne commerciale bancai
 
 **Outils :** Power BI, DAX, Power Query, Python, Excel  
 **Thèmes :** Banque, performance commerciale, segmentation client, reporting, data quality
-## Projets personnels à construire
-
-### 6. Analyse RH : turnover et absentéisme
-
-[Voir le projet](./projets/analyse-rh-turnover)
-
-Projet personnel à construire pour analyser les facteurs liés au turnover et à l’absentéisme dans une entreprise.
-
-**Objectif :** identifier les profils à risque, suivre les indicateurs RH et proposer un dashboard d’aide à la décision.
-
-**Outils prévus :** Python, SQL, Power BI  
-**Thèmes :** HR Analytics, KPI, dashboard, analyse prédictive
-
----
-
-### 7. Analyse e-commerce : ventes, clients et rentabilité
-
-[Voir le projet](./projets/analyse-ecommerce)
-
-Projet personnel à construire autour de l’analyse des ventes e-commerce.
-
-**Objectif :** analyser le chiffre d’affaires, les produits les plus rentables, les comportements clients et les tendances de vente.
-
-**Outils prévus :** SQL, Python, Power BI  
-**Thèmes :** Sales Analytics, segmentation client, performance produit
-
----
-
-### 8. Projet SQL : exploration et nettoyage d’une base de données
-
-[Voir le projet](./projets/sql-data-cleaning)
-
-Projet personnel à construire pour démontrer mes compétences SQL sur un cas complet : exploration, nettoyage, jointures, agrégations et création d’indicateurs.
-
-**Objectif :** montrer une maîtrise concrète de SQL appliquée à un problème métier.
-
-**Outils prévus :** SQL, PostgreSQL ou MySQL  
-**Thèmes :** SQL, data cleaning, analyse exploratoire, KPI
 
 ---
 
 ## Expériences
 
-### Alternante Data Analyst - Mercedes-Benz France
+### Data Analyst – Mercedes-Benz France
+*Octobre 2024 – Décembre 2025*
 
 - Création de dashboards Power BI pour le pilotage financier, les ventes, les marges et les primes
-- Audit de plus d’1 million d’enregistrements pour fiabiliser les bases clients
+- Audit qualité de 89 037 clients, 571 903 véhicules et 113 384 sociétés (près de 30 % d’anomalies)
 - Analyse marketing des volumes Email/SMS par canal et zone géographique
-- Automatisation de flux de données avec Azure Data Factory et SQL
+- Automatisation de flux de données avec Azure Data Factory
 - Mise en place de reportings et alertes avec Power Automate
 
-### Data Analyst - CPA, Crédit Populaire d’Algérie
+### Data Analyst – CPA, Crédit Populaire d’Algérie
+*Mars 2022 – Août 2022*
 
 - Création de tableaux de bord pour le suivi des flux transactionnels
 - Nettoyage et fiabilisation de bases clients avec SQL
@@ -182,8 +149,8 @@ Projet personnel à construire pour démontrer mes compétences SQL sur un cas c
 
 ## Formation
 
-- Master Data & Intelligence Artificielle - HETIC Paris
-- Master Réseaux et Systèmes Distribués - Université Constantine 2
+- Master Data & Intelligence Artificielle – HETIC Paris (2025) – titre RNCP niveau 7
+- Master Réseaux et Systèmes Distribués – Université Constantine 2
 
 ## Contact
 

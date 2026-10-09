@@ -76,7 +76,7 @@ Les données détaillées ont été floutées pour respecter la confidentialité
 - Power BI
 - DAX
 - Power Query
-- SQL
+- Azure Data Factory
 - Data Quality
 - Data Cleaning
 - Data Visualization
