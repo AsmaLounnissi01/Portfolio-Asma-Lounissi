@@ -140,7 +140,7 @@ L’objectif est d’analyser la performance d’une campagne commerciale bancai
 - Mise en place de reportings et alertes avec Power Automate
 
 ### Data Analyst – CPA, Crédit Populaire d’Algérie
-*Mars 2022 – Août 2022*
+*Mars 2022 – Août 2023*
 
 - Création de tableaux de bord pour le suivi des flux transactionnels
 - Nettoyage et fiabilisation de bases clients avec SQL
