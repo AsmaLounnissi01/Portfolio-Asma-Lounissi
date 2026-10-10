@@ -122,7 +122,7 @@ footer{padding:40px 0 60px;color:var(--ink-2);font-size:13px;text-align:center}
 <header class="hero">
   <div class="wrap">
     <div class="top">
-      <a class="back" href="./">← Retour au projet</a>
+      <a class="back" href="./" onclick="try{var r=document.referrer&&new URL(document.referrer);if(r&&r.host===location.host&&/\/projets\/qualite-donnees\/(index\.html)?$/.test(r.pathname)&&history.length>1){history.back();return false}}catch(e){}">← Retour au projet</a>
       <span class="tag">Mercedes-Benz France · Après-vente</span>
     </div>
     <h1>Pilotage de la <span>qualité des données</span><br>clients, véhicules et sociétés</h1>

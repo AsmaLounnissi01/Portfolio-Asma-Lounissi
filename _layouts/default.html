@@ -68,13 +68,15 @@
     <a class="totop" href="#contenu" aria-label="Revenir en haut de la page">↑</a>
 
     <script>
-      // « Retour » : revient toujours à la page précédente ; sans historique, renvoie à la liste des projets
+      // « Retour » : ramène toujours à la page d’accueil (liste des projets).
+      // Si on vient directement de l’accueil, on revient en arrière pour retrouver la même position.
+      var home = '{{ "/" | relative_url }}';
       document.querySelectorAll('[data-back]').forEach(function (a) {
         a.addEventListener('click', function (e) {
           try {
-            if (history.length > 1) {
-              e.preventDefault(); history.back();
-            }
+            var ref = document.referrer ? new URL(document.referrer) : null;
+            var fromHome = ref && ref.host === location.host && (ref.pathname === home || ref.pathname === home + 'index.html');
+            if (fromHome && history.length > 1) { e.preventDefault(); history.back(); }
           } catch (err) {}
         });
       });
