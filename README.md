@@ -26,6 +26,8 @@ Chez Mercedes-Benz France, j’ai audité les référentiels du réseau après-v
 - **[Voir le projet Power BI](./projets/qualite-donnees/)** : la démarche détaillée et les captures du rapport réalisé chez Mercedes.
 - **[▶ Ouvrir le dashboard interactif](./projets/qualite-donnees/dashboard.html)** : une version web à explorer en un clic, avec filtres et graphiques animés.
 
+**Outils :** Power BI, DAX, Power Query, Azure Data Factory, Excel
+
 ---
 
 ### 2. Analyse marketing des campagnes Email et SMS
