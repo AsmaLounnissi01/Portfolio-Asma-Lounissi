@@ -32,23 +32,11 @@ Chez Mercedes-Benz France, j’ai audité les référentiels du réseau après-v
 
 ### 2. Analyse marketing des campagnes Email et SMS
 
-[Voir le projet](./projets/analyse-marketing)
+Chez Mercedes-Benz France, j’ai construit un dashboard Power BI qui mesure les contacts réellement exploitables pour les campagnes marketing : 79 336 clients et 99 000 véhicules, avec 21 961 emails, 24 179 SMS et 24 752 mobiles disponibles. Les équipes filtrent par canal, autorisation RGPD, modèle, département et site, puis récupèrent directement la liste de contacts à cibler, y compris pour les relances d’entretien et de contrôle technique.
 
-Projet réalisé en contexte professionnel autour de l’analyse des volumes marketing par canal et zone géographique.  
-L’objectif était d’aider les équipes marketing à mieux comprendre la répartition des campagnes Email/SMS et à optimiser le ciblage.
+- **[Voir le projet Power BI](./projets/analyse-marketing/)** : la démarche détaillée et les captures du rapport réalisé chez Mercedes.
 
-**Points clés :**
-
-- Analyse des volumes par canal de communication
-- Segmentation de 79 336 clients et 99 000 véhicules
-- Ciblage de campagnes de 21 961 emails et 24 179 SMS
-- Segmentation par zone géographique
-- Suivi des performances marketing
-- Création d’indicateurs de pilotage
-- Restitution des résultats sous forme de dashboard
-
-**Outils :** Power BI, Power Query, Excel  
-**Thèmes :** Analyse marketing, segmentation, reporting, datavisualisation
+**Outils :** Power BI, DAX, Power Query, Azure Data Factory, Excel
 
 ---
 
