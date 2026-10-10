@@ -68,16 +68,30 @@
     <a class="totop" href="#contenu" aria-label="Revenir en haut de la page">↑</a>
 
     <script>
-      // « Retour » : ramène toujours à la page d’accueil (liste des projets).
-      // Si on vient directement de l’accueil, on revient en arrière pour retrouver la même position.
-      var home = '{{ "/" | relative_url }}';
+      // « Retour » : ramène toujours à la page d’accueil (liste des projets), jamais vers le dashboard.
+      // L’accueil retrouve la position où l’on était avant d’ouvrir le projet.
+      var KEY = 'portfolio-scroll-accueil';
+      if (document.body.classList.contains('is-home')) {
+        window.addEventListener('pagehide', function () { try { sessionStorage.setItem(KEY, String(window.scrollY)); } catch (e) {} });
+        try {
+          if (sessionStorage.getItem(KEY + '-restaurer')) {
+            sessionStorage.removeItem(KEY + '-restaurer');
+            var y = parseInt(sessionStorage.getItem(KEY) || '0', 10);
+            if (y > 0) {
+                            var go = function () { window.scrollTo(0, y); };
+              go(); window.addEventListener('load', go);
+            }
+          }
+        } catch (e) {}
+      }
       document.querySelectorAll('[data-back]').forEach(function (a) {
-        a.addEventListener('click', function (e) {
+        a.addEventListener('click', function () {
           try {
-            var ref = document.referrer ? new URL(document.referrer) : null;
-            var fromHome = ref && ref.host === location.host && (ref.pathname === home || ref.pathname === home + 'index.html');
-            if (fromHome && history.length > 1) { e.preventDefault(); history.back(); }
-          } catch (err) {}
+            if (sessionStorage.getItem(KEY)) {
+              sessionStorage.setItem(KEY + '-restaurer', '1');
+              a.href = a.href.split('#')[0];
+            }
+          } catch (e) {}
         });
       });
       // bouton « haut de page » visible après défilement
