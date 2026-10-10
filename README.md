@@ -1,12 +1,12 @@
 # Asma Lounissi – Data Analyst
-## À propos
+## À propos {#a-propos}
 
 Data Analyst diplômée d’un Master Data & Intelligence Artificielle, je transforme les données complexes en analyses claires, indicateurs fiables et tableaux de bord interactifs pour accompagner la prise de décision métier.
 Mon profil combine Business Intelligence, data quality, automatisation, analyse marketing et projets Data/IA. J’ai travaillé sur des environnements professionnels exigeants, notamment dans l’automobile, la banque et les services client, avec des outils comme Power BI, SQL, Python, DAX, Power Query, Azure Data Factory, Power Automate et Streamlit.
 
 Je recherche actuellement un CDI en tant que Data Analyst.
 
-## Compétences clés
+## Compétences clés {#competences}
 
 - Data Analysis : analyse exploratoire, suivi d’indicateurs, reporting, segmentation
 - Business Intelligence : Power BI, DAX, Power Query, QlikSense, Tableau
@@ -17,7 +17,7 @@ Je recherche actuellement un CDI en tant que Data Analyst.
 - Automatisation : Power Automate, VBA, Excel avancé
 - Data & IA : NLP, DistilBERT, LangChain, RAG, Streamlit
 
-## Projets
+## Projets {#projets}
 
 ### 1. Pilotage de la qualité des données clients, véhicules et sociétés
 
@@ -71,7 +71,7 @@ Projet personnel sur une banque fictive dont j’ai généré les données en Py
 
 ---
 
-## Expériences
+## Expériences {#experiences}
 
 ### Data Analyst – Mercedes-Benz France
 *Octobre 2024 – Décembre 2025*
@@ -90,12 +90,12 @@ Projet personnel sur une banque fictive dont j’ai généré les données en Py
 - Automatisation de processus avec Excel VBA
 - Analyses descriptives pour le pilotage commercial local
 
-## Formation
+## Formation {#formation}
 
 - Master Data & Intelligence Artificielle – HETIC Paris (2025) – titre RNCP niveau 7
 - Master Réseaux et Systèmes Distribués – Université Constantine 2
 
-## Contact
+## Contact {#contact}
 
 - Email : asmalounissi4@gmail.com
 - Localisation : Paris, Île-de-France

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "fr" }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% seo %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+  </head>
+  {%- assign is_home = false -%}
+  {%- if page.url == "/" or page.url == "/index.html" or page.url == "/README.html" -%}{%- assign is_home = true -%}{%- endif -%}
+  <body class="{% if is_home %}is-home{% else %}is-page{% endif %}">
+    <a class="skip" href="#contenu">Aller au contenu</a>
+    <div class="wrapper">
+      <header class="side">
+        <a class="id" href="{{ "/" | relative_url }}" aria-label="Accueil du portfolio">
+          {% if site.logo %}<img class="avatar" src="{{ site.logo | relative_url }}" alt="Photo d’Asma Lounissi" width="96" height="96">{% endif %}
+          <span class="id-text">
+            <span class="name">{{ site.title }}</span>
+            <span class="role">Data Analyst</span>
+          </span>
+        </a>
+        <p class="tagline">{{ site.description }}</p>
+
+        <nav class="nav" aria-label="Navigation principale">
+          <a href="{{ "/" | relative_url }}#a-propos">À propos</a>
+          <a href="{{ "/" | relative_url }}#competences">Compétences</a>
+          <a href="{{ "/" | relative_url }}#projets">Projets</a>
+          <a href="{{ "/" | relative_url }}#experiences">Expériences</a>
+          <a href="{{ "/" | relative_url }}#contact">Contact</a>
+        </nav>
+
+        <div class="links">
+          <a class="btn btn-primary" href="https://www.linkedin.com/in/asma-lounissi" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="mailto:asmalounissi4@gmail.com">Email</a>
+          <a class="btn" href="{{ site.github.repository_url | default: "https://github.com/AsmaLounnissi01/Portfolio-Asma-Lounissi" }}" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </header>
+
+      <section id="contenu" class="content">
+        {% unless is_home %}
+        <div class="backbar">
+          <a class="back" href="{{ "/" | relative_url }}#projets" data-back>← Retour</a>
+          <nav class="crumbs" aria-label="Fil d’Ariane">
+            <a href="{{ "/" | relative_url }}">Accueil</a><span aria-hidden="true">/</span><a href="{{ "/" | relative_url }}#projets">Projets</a>
+          </nav>
+        </div>
+        {% endunless %}
+
+        {{ content }}
+
+        {% unless is_home %}
+        <div class="backbar bottom">
+          <a class="back" href="{{ "/" | relative_url }}#projets" data-back>← Retour aux projets</a>
+          <a class="totop-link" href="#contenu">↑ Haut de page</a>
+        </div>
+        {% endunless %}
+      </section>
+
+      <footer class="foot">
+        <p>© {{ site.time | date: "%Y" }} Asma Lounissi · Data Analyst</p>
+      </footer>
+    </div>
+
+    <a class="totop" href="#contenu" aria-label="Revenir en haut de la page">↑</a>
+
+    <script>
+      // « Retour » : revient à la page précédente du portfolio si on en vient, sinon à la liste des projets
+      document.querySelectorAll('[data-back]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          try {
+            if (document.referrer && new URL(document.referrer).host === location.host && history.length > 1) {
+              e.preventDefault(); history.back();
+            }
+          } catch (err) {}
+        });
+      });
+      // bouton « haut de page » visible après défilement
+      var t = document.querySelector('.totop');
+      function onScroll() { t.classList.toggle('show', window.scrollY > 600); }
+      window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+      // tableaux larges : défilement horizontal sur mobile
+      document.querySelectorAll('.content table').forEach(function (tb) {
+        if (tb.parentElement.classList.contains('table-wrap')) return;
+        var w = document.createElement('div'); w.className = 'table-wrap';
+        tb.parentNode.insertBefore(w, tb); w.appendChild(tb);
+      });
+      // liens externes dans un nouvel onglet
+      document.querySelectorAll('.content a[href^="http"]').forEach(function (a) {
+        if (a.host !== location.host) { a.target = '_blank'; a.rel = 'noopener'; }
+      });
+    </script>
+  </body>
+</html>
