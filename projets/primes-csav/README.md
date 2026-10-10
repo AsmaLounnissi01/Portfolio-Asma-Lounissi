@@ -40,15 +40,25 @@ Comment fiabiliser le calcul des primes CSAV et donner aux équipes une vue synt
 
 ## Aperçu du dashboard
 
-> Les noms des collaborateurs ont été floutés pour respecter la confidentialité. Les indicateurs globaux restent visibles afin d’illustrer la logique de calcul.
+> Les noms des collaborateurs ont été floutés pour respecter la confidentialité. Les montants restent visibles afin d’illustrer la logique de calcul.
 
 ### Suivi des primes incitatives
 
-![Dashboard prime incitative](images/dashboard-prime-incitative-floute.png)
+Vue mensuelle par site : nombre de conseillers, prime totale et atteinte de l’objectif de chiffre d’affaires. Le premier tableau détaille, pour chaque conseiller, les quantités vendues et les primes par type de vente additionnelle. Le second applique les bonus/malus liés à la note KPI, et le dernier donne la prime totale par conseiller.
+
+![Suivi des primes incitatives](images/dashboard-prime-incitative.png)
+
+### Bordereau de primes pour la paie
+
+Page prête à transmettre à la paie avant le 15 du mois : prime totale par conseiller CSAV et hors CSAV, zone d’observation, signature du responsable SAV et date de validation.
+
+![Bordereau de primes](images/dashboard-bordereau-paie.png)
 
 ### Barème de calcul des primes
 
-![Barème prime](images/dashboard-bareme-prime.png)
+Les trois grilles utilisées dans les calculs : prime unitaire par vente additionnelle, bonus/malus Fidcar et KPI selon la note obtenue, et paliers de prime selon l’atteinte de l’objectif de chiffre d’affaires.
+
+![Barème des primes](images/dashboard-bareme-prime.png)
 
 ## Logique métier du calcul
 
