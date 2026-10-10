@@ -42,21 +42,11 @@ Chez Mercedes-Benz France, j’ai construit un dashboard Power BI qui mesure les
 
 ### 3. Calcul et suivi des primes des conseillers après-vente (CSAV)
 
-[Voir le projet](./projets/primes-csav)
+Chez Mercedes-Benz France, j’ai conçu un dashboard Power BI qui calcule et suit les primes incitatives des conseillers service après-vente. Il regroupe les primes sur les ventes additionnelles (pneus, balais, batterie, pare-brise, service care…), les bonus/malus liés à la note KPI et les paliers d’objectif de chiffre d’affaires. Les montants se filtrent par année, mois et site, avec une synthèse par conseiller prête à être contrôlée avant transmission à la paie.
 
-Projet réalisé en alternance autour du calcul et du suivi des primes incitatives des CSAV (conseillers service après-vente).  
-L’objectif était d’automatiser le pilotage des primes, de fiabiliser les calculs et de fournir une vision claire aux équipes concernées.
+- **[Voir le projet Power BI](./projets/primes-csav/)** : la logique de calcul, le barème et les captures du rapport réalisé chez Mercedes.
 
-**Points clés :**
-
-- Création d’indicateurs de suivi des primes
-- Automatisation de calculs métier
-- Suivi financier et opérationnel
-- Création de reportings Power BI
-- Fiabilisation des données utilisées pour le pilotage
-
-**Outils :** Power BI, DAX, Power Query, Excel  
-**Thèmes :** Reporting financier, KPI, automatisation, analyse métier
+**Outils :** Power BI, DAX, Power Query, Excel
 
 ---
 
