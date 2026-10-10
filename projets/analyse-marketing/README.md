@@ -48,6 +48,12 @@ Volumes de véhicules, clients, sociétés et contacts disponibles par canal, r�
 
 ![Accueil](images/dashboard-accueil.png)
 
+### Canaux de communication
+
+Contacts exploitables par canal selon l’autorisation RGPD, avec le détail par modèle et des boutons vers chaque extraction.
+
+![Canaux de communication](images/dashboard-canaux-communication.png)
+
 ### Extraction globale
 
 ![Extraction globale](images/dashboard-extraction-globale.png)
