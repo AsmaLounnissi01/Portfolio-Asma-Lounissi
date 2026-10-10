@@ -64,10 +64,9 @@ Pour mon projet de fin d’études, j’ai automatisé le traitement des tweets 
 
 Projet personnel sur une banque fictive dont j’ai généré les données en Python : 12 agences, 63 conseillers, 24 000 clients et 62 184 opportunités commerciales sur 2024-2025. L’analyse montre un PNB de 4,33 M€ en hausse de 6,5 % mais à 95 % de l’objectif, un rendez-vous en agence qui transforme deux fois mieux que le digital, et des clients peu équipés (1 ou 2 produits) qui partent 5,6 fois plus que les autres.
 
-- **[Voir le projet](./projets/performance-commerciale-bancaire/)** : la génération des données, le modèle Power BI, les indicateurs DAX et les recommandations.
-- **[▶ Ouvrir le dashboard interactif](./projets/performance-commerciale-bancaire/dashboard.html)** : une version web à explorer, filtrable par année, région, agence et famille de produits.
+- **[Voir le projet Power BI](./projets/performance-commerciale-bancaire/)** : la génération des données, le modèle, les indicateurs DAX, les captures du rapport et les recommandations.
 
-**Outils :** Python, Pandas, Power BI, DAX, Power Query, JavaScript (Chart.js)
+**Outils :** Python, Pandas, Power BI, DAX, Power Query
 
 ---
 

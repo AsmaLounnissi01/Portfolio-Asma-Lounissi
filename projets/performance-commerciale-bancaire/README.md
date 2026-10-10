@@ -1,12 +1,10 @@
 # Pilotage de la performance commerciale d’un réseau bancaire
 
-> **[▶ Ouvrir le dashboard interactif](./dashboard.html)** : toutes les analyses de cette page, filtrables par année, région, agence et famille de produits.
-
 ## Contexte
 
 Projet personnel réalisé sur une banque de détail fictive, **Banque Aurore**, avec des données que j’ai entièrement générées en Python : 12 agences réparties dans 4 régions, 63 conseillers, 24 000 clients et 62 184 opportunités commerciales sur 2024 et 2025.
 
-L’objectif est de reproduire le travail d’un Data Analyst dans la direction commerciale d’un réseau bancaire : construire le modèle de données, définir les indicateurs qui comptent pour la direction, puis livrer un rapport Power BI et un dashboard web qui disent clairement où le réseau gagne et où il perd.
+L’objectif est de reproduire le travail d’un Data Analyst dans la direction commerciale d’un réseau bancaire : construire le modèle de données, définir les indicateurs qui comptent pour la direction, puis livrer un rapport Power BI qui dit clairement où le réseau gagne et où il perd.
 
 ## Problématique
 
@@ -56,8 +54,7 @@ Modèle en étoile dans Power BI : la table des opportunités au centre, reliée
 
 ### 4. Restitution
 
-- Un **rapport Power BI de 4 pages** : vue d’ensemble, agences, produits et conseillers, clients
-- Un **[dashboard web interactif](./dashboard.html)** qui recalcule tous les indicateurs selon les filtres choisis
+Un **rapport Power BI de 4 pages** (vue d’ensemble, agences, produits et conseillers, clients), filtrable par année, région, agence et famille de produits.
 
 ## Aperçu du rapport Power BI
 
@@ -99,14 +96,13 @@ Le taux d’attrition selon le nombre de produits détenus et par segment de cli
 - Python : génération et préparation de données (Pandas, NumPy)
 - Power BI : modélisation en étoile, DAX (time intelligence), Power Query, mise en forme
 - Définition de KPI commerciaux bancaires : PNB, objectifs, transformation, équipement, attrition
-- Data visualization web : HTML, JavaScript, Chart.js
+- Data visualization et reporting décisionnel
 - Analyse et recommandations métier
 
 ## Fichiers du projet
 
 - [`scripts/generer_donnees.py`](scripts/generer_donnees.py) : génération du jeu de données fictif
 - [`scripts/generer_pbip.py`](scripts/generer_pbip.py) : modèle Power BI (tables, relations, mesures DAX) et pages du rapport
-- [`scripts/agreger_dashboard.py`](scripts/agreger_dashboard.py) : agrégation des données pour le dashboard web
 - [`data/`](data/) : les six tables au format CSV
 
 > Toutes les données sont fictives : aucune banque, aucun client et aucun conseiller réels ne sont représentés.
