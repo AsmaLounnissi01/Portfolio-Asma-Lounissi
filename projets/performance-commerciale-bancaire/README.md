@@ -1,110 +1,88 @@
-# Dashboard de performance commerciale bancaire
+# Pilotage de la performance commerciale d’un réseau bancaire
+
+> **[▶ Ouvrir le dashboard interactif](./dashboard.html)** : toutes les analyses de cette page, filtrables par année, région, agence et famille de produits.
 
 ## Contexte
 
-Ce projet personnel vise à construire un dashboard de performance commerciale bancaire à partir d'un dataset public de campagnes marketing.
+Projet personnel réalisé sur une banque de détail fictive, **Banque Aurore**, avec des données que j’ai entièrement générées en Python : 12 agences réparties dans 4 régions, 63 conseillers, 24 000 clients et 62 184 opportunités commerciales sur 2024 et 2025.
 
-L'objectif est d'analyser les profils clients, les canaux de contact, les campagnes commerciales et les indicateurs de conversion afin d'aider une agence bancaire à piloter son activité.
-
-## Source des données
-
-Les données principales proviennent du dataset public **Bank Marketing** de l'UCI Machine Learning Repository.
-
-Source : https://archive.ics.uci.edu/dataset/222/bank+marketing
-
-Le dataset contient 45 211 contacts de campagne. Certaines tables complémentaires ont été simulées afin de construire un cas métier complet de pilotage commercial bancaire.
+L’objectif est de reproduire le travail d’un Data Analyst dans la direction commerciale d’un réseau bancaire : construire le modèle de données, définir les indicateurs qui comptent pour la direction, puis livrer un rapport Power BI et un dashboard web qui disent clairement où le réseau gagne et où il perd.
 
 ## Problématique
 
-Comment analyser la performance commerciale d'une campagne bancaire et identifier les profils clients les plus susceptibles de souscrire à un produit ?
+Le réseau atteint-il ses objectifs de PNB, quelles agences et quels canaux tirent la performance, et comment réduire le départ des clients ?
 
-## Objectifs du projet
+## Résultats clés (2025)
 
-- Suivre le taux de conversion des campagnes
-- Analyser le portefeuille clients par profil
-- Identifier les segments les plus performants
-- Comparer les performances par canal de contact
-- Suivre les indicateurs par agence et région
-- Contrôler la qualité des données
-- Construire un dashboard Power BI interactif
+- **4,33 M€** de PNB, en hausse de **6,5 %** sur un an, mais **95,0 %** seulement de l’objectif (4,55 M€) : il manque 226 k€
+- **5 agences sur 12** atteignent leur objectif, de **111,4 %** (Lille Centre) à **77,3 %** (Paris Bastille) ; 3 agences reculent sur un an, dont Paris Bastille (-13,4 %)
+- **43,4 %** des opportunités se transforment en vente (+0,8 point), avec **14 044** ventes signées (+10,6 %)
+- **173,3 M€** de crédits produits et **60,0 M€** d’épargne collectée ; le crédit pèse **58 %** du PNB
+- Le rendez-vous en agence transforme **52,3 %** des opportunités, contre **25,6 %** en ligne, alors que la part du digital passe de **26,1 %** à **35,3 %**
+- **8,4 %** des clients sont partis en 2025 : **15,4 %** chez les clients qui ont 1 ou 2 produits, contre **2,8 %** à partir de 4 produits, soit un risque **5,6 fois** plus élevé
 
-## Indicateurs clés
+## Démarche
 
-- Nombre total de contacts : 45 211
-- Nombre de souscriptions : 5 289
-- Taux de conversion global : 11,7 %
-- Solde moyen client : 1 362,27
-- Durée moyenne d'un contact : 4,3 minutes
+### 1. Génération d’un jeu de données réaliste
 
-  ## Aperçu du dashboard
+Un script Python ([generer_donnees.py](scripts/generer_donnees.py)) crée six tables cohérentes entre elles, avec une graine fixe pour que les résultats soient reproductibles :
 
-## Aperçu du dashboard
+| Table | Lignes | Contenu |
+|---|---|---|
+| `opportunites` | 62 184 | date, agence, conseiller, client, produit, canal, statut (signé / perdu), montant, PNB |
+| `clients` | 24 000 | segment, âge, ancienneté, nombre de produits détenus, départ en 2025 |
+| `objectifs` | 576 | objectif de PNB 2025 par mois, agence et famille de produits |
+| `conseillers` | 63 | agence, fonction, ancienneté |
+| `agences` | 12 | agence, région |
+| `produits` | 9 | produit, famille (Crédit, Épargne, Assurance, Services), taux de PNB |
 
-### Vue d’ensemble
+Les données suivent des comportements réalistes : saisonnalité (creux d’août, pic du crédit immobilier au printemps), montée du digital entre 2024 et 2025, affinité des produits selon le segment, écarts de performance entre agences et conseillers, et attrition plus forte chez les clients peu équipés.
 
-![Vue d’ensemble](images/Vue%20d'ensemble.png)
+### 2. Modélisation
 
-### Analyse du portefeuille clients
+Modèle en étoile dans Power BI : la table des opportunités au centre, reliée aux agences, conseillers, produits et à une table calendrier ; les objectifs et les clients sont reliés aux agences.
 
-![Analyse du portefeuille clients](images/Analyse%20du%20portefeuille%20clients.png)
+### 3. Indicateurs DAX
 
-### Performance commerciale
+| Indicateur | Définition |
+|---|---|
+| PNB | somme du PNB des ventes signées |
+| Évolution PNB | PNB vs même période de l’année précédente (`SAMEPERIODLASTYEAR`) |
+| Atteinte objectif | PNB / objectif de PNB |
+| Taux de transformation | ventes signées / opportunités traitées |
+| Production crédit, collecte épargne | montants signés sur les familles Crédit et Épargne |
+| Attrition clients | clients partis / nombre de clients |
+| Équipement moyen | nombre moyen de produits détenus par client |
 
-![Performance commerciale](images/Performance%20commerciale.png)
+### 4. Restitution
 
-### Qualité des données
+- Un **rapport Power BI de 4 pages** : vue d’ensemble, agences, produits et conseillers, clients
+- Un **[dashboard web interactif](./dashboard.html)** qui recalcule tous les indicateurs selon les filtres choisis
 
-![Qualité des données](images/Qualité%20des%20données.png)
+## Aperçu du rapport Power BI
 
-## Tables préparées
+<!-- CAPTURES_POWER_BI -->
 
-- `contacts_campagne_bancaire.csv`
-- `agences.csv`
-- `produits.csv`
-- `qualite_donnees.csv`
-- `resume_kpi.csv`
+## Recommandations
 
-## Pages prévues du dashboard
+- **Agences sous 90 % de l’objectif** (Paris Bastille, Annecy, Bordeaux Chartrons) : revoir avec elles le portefeuille d’opportunités et la répartition des objectifs, en priorité Paris Bastille, dont le PNB recule de 13,4 % alors que son objectif prévoyait une hausse.
+- **Canaux digitaux** : ils apportent du volume mais transforment deux fois moins qu’un rendez-vous en agence. Proposer un rendez-vous visio ou agence aux demandes en ligne les plus avancées.
+- **Multi-détention** : faire passer les clients de 1-2 produits à 3 produits et plus, en ciblant d’abord les jeunes actifs, le segment le moins équipé et celui qui part le plus (15 %).
+- **Conseillers** : l’écart de PNB entre conseillers va de 1 à 6,7 ; partager les pratiques des meilleurs.
 
-### 1. Vue d'ensemble
+## Compétences utilisées
 
-- Contacts
-- Souscriptions
-- Taux de conversion
-- Solde moyen
-- Conversion par mois
+- Python : génération et préparation de données (Pandas, NumPy)
+- Power BI : modélisation en étoile, DAX (time intelligence), Power Query, mise en forme
+- Définition de KPI commerciaux bancaires : PNB, objectifs, transformation, équipement, attrition
+- Data visualization web : HTML, JavaScript, Chart.js
+- Analyse et recommandations métier
 
-### 2. Analyse clients
+## Fichiers du projet
 
-- Répartition par âge
-- Répartition par profession
-- Répartition par statut marital
-- Solde moyen par segment
-- Souscription selon les crédits existants
+- [`scripts/generer_donnees.py`](scripts/generer_donnees.py) : génération du jeu de données fictif
+- [`scripts/generer_pbip.py`](scripts/generer_pbip.py) : modèle Power BI (tables, relations, mesures DAX) et pages du rapport
+- [`scripts/agreger_dashboard.py`](scripts/agreger_dashboard.py) : agrégation des données pour le dashboard web
+- [`data/`](data/) : les six tables au format CSV
 
-### 3. Performance commerciale
-
-- Conversion par canal de contact
-- Conversion par intensité de campagne
-- Performance par agence
-- Performance par région
-
-### 4. Qualité des données
-
-- Taux de valeurs inconnues
-- Champs à fiabiliser
-- Impact potentiel sur l'analyse
-
-## Compétences travaillées
-
-- Analyse exploratoire
-- Nettoyage et préparation de données
-- Modélisation de données
-- Création de KPI
-- Segmentation client
-- Power BI
-- SQL / Python
-- Reporting commercial
-- Data quality
-
-
+> Toutes les données sont fictives : aucune banque, aucun client et aucun conseiller réels ne sont représentés.

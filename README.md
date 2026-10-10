@@ -60,25 +60,14 @@ Pour mon projet de fin d’études, j’ai automatisé le traitement des tweets 
 
 ---
 
-### 5. Dashboard de performance commerciale bancaire
+### 5. Pilotage de la performance commerciale d’un réseau bancaire
 
-[Voir le projet](./projets/performance-commerciale-bancaire/)
+Projet personnel sur une banque fictive dont j’ai généré les données en Python : 12 agences, 63 conseillers, 24 000 clients et 62 184 opportunités commerciales sur 2024-2025. L’analyse montre un PNB de 4,33 M€ en hausse de 6,5 % mais à 95 % de l’objectif, un rendez-vous en agence qui transforme deux fois mieux que le digital, et des clients peu équipés (1 ou 2 produits) qui partent 5,6 fois plus que les autres.
 
-Projet personnel réalisé avec Power BI à partir du dataset public Bank Marketing de l’UCI Machine Learning Repository.  
-L’objectif est d’analyser la performance d’une campagne commerciale bancaire, d’identifier les profils clients les plus susceptibles de souscrire à un produit et de suivre la qualité des données utilisées.
+- **[Voir le projet](./projets/performance-commerciale-bancaire/)** : la génération des données, le modèle Power BI, les indicateurs DAX et les recommandations.
+- **[▶ Ouvrir le dashboard interactif](./projets/performance-commerciale-bancaire/dashboard.html)** : une version web à explorer, filtrable par année, région, agence et famille de produits.
 
-**Points clés :**
-
-- Analyse de 45 211 interactions commerciales
-- Suivi des souscriptions et du taux de conversion
-- Analyse du portefeuille clients par âge, profession, éducation et crédits existants
-- Comparaison des performances par agence, région et canal de contact
-- Analyse de l’impact de l’intensité de campagne sur la conversion
-- Contrôle de la qualité des données et identification des valeurs inconnues
-- Création d’un dashboard Power BI interactif en 4 pages
-
-**Outils :** Power BI, DAX, Power Query, Python, Excel  
-**Thèmes :** Banque, performance commerciale, segmentation client, reporting, data quality
+**Outils :** Python, Pandas, Power BI, DAX, Power Query, JavaScript (Chart.js)
 
 ---
 

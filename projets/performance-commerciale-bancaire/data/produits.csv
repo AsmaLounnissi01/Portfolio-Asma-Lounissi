@@ -1,0 +1,10 @@
+id_produit,produit,famille,taux_pnb
+P01,Crédit immobilier,Crédit,0.011
+P02,Crédit consommation,Crédit,0.045
+P03,Livret d'épargne,Épargne,0.006
+P04,Assurance vie,Épargne,0.01
+P05,PEA,Épargne,0.008
+P06,Assurance habitation,Assurance,0.35
+P07,Prévoyance,Assurance,0.4
+P08,Carte premium,Services,0.9
+P09,Banque à distance pro,Services,0.85
