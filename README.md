@@ -21,23 +21,12 @@ Je recherche actuellement un CDI en tant que Data Analyst.
 
 ### 1. Pilotage de la qualité des données clients, véhicules et sociétés
 
-[Voir le projet](./projets/qualite-donnees/) · **[▶ Dashboard interactif](./projets/qualite-donnees/dashboard.html)**
+Chez Mercedes-Benz France, j’ai audité les référentiels du réseau après-vente (89 037 clients, 571 903 véhicules, 113 384 sociétés) avec des règles de contrôle par champ et une note qualité sur 10 par fiche. Le dashboard Power BI fait ressortir 25 % de véhicules et 30 % de sociétés sans rattachement, les doublons, et fournit aux équipes métier, site par site, la liste des fiches à corriger.
 
-Projet réalisé chez Mercedes-Benz France sur les référentiels du réseau après-vente.  
-L’objectif était de mesurer les anomalies (champs manquants, doublons, fiches orphelines), de les localiser par site et de fournir aux équipes métier la liste des fiches à corriger.
+- **[Voir le projet Power BI](./projets/qualite-donnees/)** : la démarche détaillée et les captures du rapport réalisé chez Mercedes.
+- **[▶ Ouvrir le dashboard interactif](./projets/qualite-donnees/dashboard.html)** : une version web à explorer en un clic, avec filtres et graphiques animés.
 
-**Points clés :**
-
-- Audit de 89 037 clients, 571 903 véhicules et 113 384 sociétés
-- Règles de contrôle OK / NOK par champ critique et note qualité sur 10 par fiche
-- 24,88 % de véhicules et 30,07 % de sociétés orphelins identifiés
-- Détection des doublons : 6 030 véhicules, 2 114 sociétés, 573 clients
-- Contrôle de cohérence de 58 597 ordres de réparation (véhicule, comptabilité, CRM)
-- Suivi J-7 des nouvelles saisies et filtres par site
-- Dashboard Power BI de 10 pages avec listes de corrections
-
-**Outils :** Power BI, DAX, Power Query, Azure Data Factory, Excel  
-**Thèmes :** Data Quality, BI, reporting, référentiels métier
+**Outils :** Power BI, DAX, Power Query, Azure Data Factory, Excel
 
 ---
 
