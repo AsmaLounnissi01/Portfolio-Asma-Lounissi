@@ -21,7 +21,7 @@ Je recherche actuellement un CDI en tant que Data Analyst.
 
 ### 1. Pilotage de la qualité des données clients, véhicules et sociétés
 
-[Voir le projet](./projets/qualite-donnees/)
+[Voir le projet](./projets/qualite-donnees/) · **[▶ Dashboard interactif](./projets/qualite-donnees/dashboard.html)**
 
 Projet réalisé chez Mercedes-Benz France sur les référentiels du réseau après-vente.  
 L’objectif était de mesurer les anomalies (champs manquants, doublons, fiches orphelines), de les localiser par site et de fournir aux équipes métier la liste des fiches à corriger.

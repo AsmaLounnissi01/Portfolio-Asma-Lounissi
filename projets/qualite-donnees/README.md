@@ -1,5 +1,7 @@
 # Pilotage de la qualité des données clients, véhicules et sociétés
 
+**[▶ Ouvrir le dashboard interactif](./dashboard.html)** : filtres par référentiel, graphiques animés, chiffres clés.
+
 ## Contexte
 
 Chez Mercedes-Benz France, j’ai conçu un dashboard Power BI de suivi de la qualité des données référentielles du réseau après-vente : clients, véhicules, sociétés et ordres de réparation.
@@ -33,7 +35,7 @@ Pour chaque référentiel, j’ai défini avec les équipes métier les champs c
 
 ### 2. Calcul d’une note qualité par fiche
 
-Chaque fiche reçoit une note globale sur 10, calculée en DAX à partir du nombre de champs conformes. Cette note permet de comparer les référentiels entre eux et de trier les fiches de la plus dégradée à la plus complète.
+Chaque fiche reçoit une note globale sur 10, calculée en DAX à partir des champs conformes. Pour les clients, le barème est pondéré : 1 point chacun pour la civilité, le prénom, le nom, l’adresse et le code postal, 2,5 points chacun pour le téléphone portable et l’email. Cette note permet de comparer les référentiels entre eux et de trier les fiches de la plus dégradée à la plus complète.
 
 ### 3. Détection des orphelins et des doublons
 

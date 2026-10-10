@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qualité des données – Dashboard interactif | Asma Lounissi</title>
+<meta name="description" content="Dashboard interactif de pilotage de la qualité des données clients, véhicules, sociétés et ordres de réparation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="chart.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0B2545; --navy-2:#13315C; --ink:#1B2430; --ink-2:#5E6B7A; --ink-3:#8C97A4;
+  --bg:#F4F6F9; --card:#FFFFFF; --line:#E6EAF0;
+  --client:#2563EB; --vehicule:#0D9488; --societe:#C2410C;
+  --ok:#0F8A5F; --warn:#B45309; --bad:#C62828;
+  --accent:#00A3E0;
+  --r:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+a{color:var(--client)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* HERO */
+.hero{background:radial-gradient(1200px 500px at 85% -10%,rgba(0,163,224,.35),transparent 60%),linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);color:#fff;padding:28px 0 90px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:40px 40px;mask-image:linear-gradient(to bottom,#000,transparent);pointer-events:none}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;position:relative;z-index:1}
+.back{color:#cfe8f5;text-decoration:none;font-size:14px}
+.back:hover{color:#fff}
+.tag{font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.12);padding:6px 12px;border-radius:999px}
+.hero h1{font-size:clamp(28px,4.4vw,48px);line-height:1.1;margin:38px 0 12px;font-weight:800;letter-spacing:-.02em;position:relative;z-index:1}
+.hero h1 span{background:linear-gradient(90deg,#7dd3fc,#5eead4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{max-width:720px;color:#d6e4f0;font-size:17px;margin:0;position:relative;z-index:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;position:relative;z-index:1}
+.chip{font-size:13px;padding:6px 12px;border:1px solid rgba(255,255,255,.25);border-radius:999px;color:#e8f3fb}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:-60px;position:relative;z-index:2}
+.kpi{background:var(--card);border-radius:var(--r);padding:20px;box-shadow:0 10px 30px rgba(11,37,69,.10);border:1px solid var(--line);transition:transform .25s ease,box-shadow .25s ease}
+.kpi:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(11,37,69,.16)}
+.kpi .lbl{font-size:13px;color:var(--ink-2);font-weight:500}
+.kpi .val{font-size:34px;font-weight:800;letter-spacing:-.02em;margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.kpi .sub{font-size:13px;color:var(--ink-3)}
+.kpi .bar{height:6px;border-radius:6px;background:var(--line);margin-top:12px;overflow:hidden}
+.kpi .bar i{display:block;height:100%;width:0;border-radius:6px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+/* SECTIONS */
+section{margin:56px 0}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.sh h2{font-size:26px;margin:0;letter-spacing:-.01em}
+.sh p{margin:4px 0 0;color:var(--ink-2);max-width:640px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:var(--navy);color:#fff;font-size:14px;font-weight:700;margin-right:10px;vertical-align:middle}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 4px 14px rgba(11,37,69,.05)}
+.card h3{margin:0 0 4px;font-size:16px}
+.card .hint{margin:0 0 14px;color:var(--ink-2);font-size:13px}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+/* TABS */
+.tabs{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px}
+.tab{border:0;background:transparent;font:inherit;font-size:14px;font-weight:600;color:var(--ink-2);padding:8px 16px;border-radius:9px;cursor:pointer;transition:all .2s}
+.tab[aria-selected=true]{background:var(--navy);color:#fff}
+.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.mini div{background:var(--bg);border-radius:12px;padding:12px 14px}
+.mini b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.mini span{font-size:12px;color:var(--ink-2)}
+
+/* GAUGE */
+.gauge{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
+.gauge svg{width:220px;max-width:100%}
+.gauge .g-val{font-size:40px;font-weight:800;fill:var(--ink)}
+.gauge .g-sub{font-size:13px;fill:var(--ink-2)}
+.rules{list-style:none;padding:0;margin:14px 0 0;width:100%}
+.rules li{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.rules li:last-child{border-bottom:0}
+.pts{font-weight:700;font-variant-numeric:tabular-nums}
+.ptbar{flex:1;margin:0 12px;height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.ptbar i{display:block;height:100%;border-radius:6px}
+
+/* ANOMALIES */
+.anom{display:flex;flex-direction:column;gap:16px}
+.arow .t{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+.arow .t b{font-variant-numeric:tabular-nums}
+.track{height:12px;background:var(--line);border-radius:8px;overflow:hidden}
+.track i{display:block;height:100%;width:0;border-radius:8px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+
+/* FUNNEL */
+.funnel{display:flex;flex-direction:column;gap:10px}
+.fstep{display:grid;grid-template-columns:200px 1fr 90px;align-items:center;gap:12px;font-size:14px}
+.fstep .fb{height:34px;background:var(--line);border-radius:10px;overflow:hidden;position:relative}
+.fstep .fb i{position:absolute;inset:0 auto 0 0;width:0;border-radius:10px;background:linear-gradient(90deg,var(--client),var(--accent));transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.fstep .pct{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.step{position:relative}
+.step .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#E8F1FD;color:var(--client);margin-bottom:12px}
+.step h4{margin:0 0 6px;font-size:15px}
+.step p{margin:0;color:var(--ink-2);font-size:14px}
+
+.insight{border-left:4px solid var(--accent);background:#EAF7FD;padding:14px 16px;border-radius:0 12px 12px 0;font-size:14px;margin-top:16px}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.tbl th,.tbl td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+.tbl th{color:var(--ink-2);font-weight:600}
+details summary{cursor:pointer;color:var(--ink-2);font-size:13px;margin-top:10px}
+.chartbox{position:relative;height:300px}
+footer{padding:40px 0 60px;color:var(--ink-2);font-size:13px;text-align:center}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2,.grid3,.steps{grid-template-columns:1fr}.fstep{grid-template-columns:120px 1fr 60px}}
+@media (max-width:480px){.kpis{grid-template-columns:1fr}.mini{grid-template-columns:1fr}.kpi .val{font-size:28px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="./">← Retour au projet</a>
+      <span class="tag">Mercedes-Benz France · Après-vente</span>
+    </div>
+    <h1>Pilotage de la <span>qualité des données</span><br>clients, véhicules et sociétés</h1>
+    <p class="lead">Audit de plus de 770 000 fiches référentielles : règles de contrôle par champ, note qualité sur 10, détection des orphelins et des doublons, et cohérence des ordres de réparation.</p>
+    <div class="chips">
+      <span class="chip">Power BI</span><span class="chip">DAX</span><span class="chip">Power Query</span><span class="chip">Azure Data Factory</span><span class="chip">Data Quality</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="kpis" aria-label="Indicateurs clés">
+    <div class="kpi"><div class="lbl"><span class="dot" style="background:var(--client)"></span>Clients audités</div><div class="val" data-count="89037">0</div><div class="sub">Note moyenne <b>5,04</b> / 10</div><div class="bar"><i data-w="50.4" style="background:var(--client)"></i></div></div>
+    <div class="kpi"><div class="lbl"><span class="dot" style="background:var(--vehicule)"></span>Véhicules audités</div><div class="val" data-count="571903">0</div><div class="sub">Note moyenne <b>7,64</b> / 10</div><div class="bar"><i data-w="76.4" style="background:var(--vehicule)"></i></div></div>
+    <div class="kpi"><div class="lbl"><span class="dot" style="background:var(--societe)"></span>Sociétés auditées</div><div class="val" data-count="113384">0</div><div class="sub">Note moyenne <b>6,37</b> / 10</div><div class="bar"><i data-w="63.7" style="background:var(--societe)"></i></div></div>
+    <div class="kpi"><div class="lbl"><span class="dot" style="background:var(--bad)"></span>Fiches orphelines</div><div class="val" data-count="180397">0</div><div class="sub">véhicules + sociétés sans rattachement</div><div class="bar"><i data-w="26" style="background:var(--bad)"></i></div></div>
+  </div>
+
+  <!-- 1. NOTES -->
+  <section class="reveal" id="notes">
+    <div class="sh">
+      <div><h2><span class="num">1</span>Note qualité par fiche</h2><p>Chaque fiche reçoit une note sur 10 selon la conformité de ses champs critiques. Choisissez un référentiel.</p></div>
+      <div class="tabs" role="tablist" aria-label="Référentiel">
+        <button class="tab" role="tab" aria-selected="true" data-ref="client">Clients</button>
+        <button class="tab" role="tab" aria-selected="false" data-ref="vehicule">Véhicules</button>
+        <button class="tab" role="tab" aria-selected="false" data-ref="societe">Sociétés</button>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3 id="distTitle">Répartition des notes – Clients</h3>
+        <p class="hint">Part des fiches pour chaque note (en %). Survolez une barre pour le détail.</p>
+        <div class="mini">
+          <div><b id="mVol">89 037</b><span>fiches</span></div>
+          <div><b id="mAvg">5,04</b><span>note moyenne / 10</span></div>
+          <div><b id="mDelay">2 467 j</b><span>délai moyen entre 2 modifications</span></div>
+        </div>
+        <div class="chartbox"><canvas id="distChart" aria-label="Répartition des notes qualité"></canvas></div>
+        <div class="insight" id="distInsight"></div>
+        <details><summary>Voir les données en tableau</summary><table class="tbl" id="distTable"></table></details>
+      </div>
+      <div class="card">
+        <h3>Note moyenne</h3>
+        <p class="hint" id="gaugeHint">Barème de la note client</p>
+        <div class="gauge">
+          <svg viewBox="0 0 220 130" role="img" aria-label="Jauge de la note moyenne">
+            <path d="M20 115 A90 90 0 0 1 200 115" fill="none" stroke="#E6EAF0" stroke-width="18" stroke-linecap="round"/>
+            <path id="gArc" d="M20 115 A90 90 0 0 1 200 115" fill="none" stroke="#2563EB" stroke-width="18" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283" style="transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1),stroke .3s"/>
+            <text id="gVal" x="110" y="100" text-anchor="middle" class="g-val">5,04</text>
+            <text x="110" y="122" text-anchor="middle" class="g-sub">sur 10</text>
+          </svg>
+          <ul class="rules" id="rules"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ANOMALIES -->
+  <section class="reveal" id="anomalies">
+    <div class="sh"><div><h2><span class="num">2</span>Orphelins et doublons</h2><p>Les deux anomalies qui faussent le plus les relances clients et les campagnes : des fiches sans rattachement et des fiches créées plusieurs fois.</p></div></div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Taux d’anomalies par référentiel</h3>
+        <p class="hint">Part des fiches concernées</p>
+        <div class="anom">
+          <div class="arow"><div class="t"><span><span class="dot" style="background:var(--societe)"></span>Sociétés orphelines</span><b>30,07 % · 34 091</b></div><div class="track"><i data-w="30.07" style="background:var(--bad)"></i></div></div>
+          <div class="arow"><div class="t"><span><span class="dot" style="background:var(--vehicule)"></span>Véhicules orphelins</span><b>24,88 % · 146 306</b></div><div class="track"><i data-w="24.88" style="background:var(--bad)"></i></div></div>
+          <div class="arow"><div class="t"><span><span class="dot" style="background:var(--societe)"></span>Sociétés en double</span><b>1,87 % · 2 114</b></div><div class="track"><i data-w="1.87" style="background:var(--warn)"></i></div></div>
+          <div class="arow"><div class="t"><span><span class="dot" style="background:var(--vehicule)"></span>Véhicules en double</span><b>1,05 % · 6 030</b></div><div class="track"><i data-w="1.05" style="background:var(--warn)"></i></div></div>
+        </div>
+        <div class="insight"><b>À retenir :</b> près d’une société sur trois et un véhicule sur quatre ne sont rattachés à aucun client. Les doublons, eux, restent marginaux (moins de 2 %).</div>
+      </div>
+      <div class="card">
+        <h3>Combien de clients par véhicule ?</h3>
+        <p class="hint">Nombre de clients rattachés à chaque véhicule (571 903 véhicules)</p>
+        <div class="chartbox" style="height:260px"><canvas id="rattChart" aria-label="Rattachement des véhicules aux clients"></canvas></div>
+        <details><summary>Voir les données en tableau</summary>
+          <table class="tbl"><tr><th>Clients rattachés</th><th>Véhicules</th><th>Part</th></tr>
+          <tr><td>0</td><td>146 306</td><td>25,6 %</td></tr><tr><td>1</td><td>25 886</td><td>4,5 %</td></tr><tr><td>2</td><td>2 760</td><td>0,5 %</td></tr><tr><td>3</td><td>396 951</td><td>69,4 %</td></tr></table>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. OR -->
+  <section class="reveal" id="or">
+    <div class="sh"><div><h2><span class="num">3</span>Cohérence des ordres de réparation</h2><p>Chaque ordre de réparation doit être relié à un véhicule, à un compte comptable et à un client du CRM. Sur 58 597 ordres contrôlés :</p></div></div>
+    <div class="card">
+      <div class="funnel">
+        <div class="fstep"><span>Ordres de réparation</span><div class="fb"><i data-w="100"></i></div><span class="pct">58 597</span></div>
+        <div class="fstep"><span>Véhicule conforme</span><div class="fb"><i data-w="70.2"></i></div><span class="pct">70,2 %</span></div>
+        <div class="fstep"><span>Comptabilité conforme</span><div class="fb"><i data-w="18.8"></i></div><span class="pct">18,8 %</span></div>
+        <div class="fstep"><span>Client CRM conforme</span><div class="fb"><i data-w="7.7"></i></div><span class="pct">7,7 %</span></div>
+      </div>
+      <div class="insight"><b>À retenir :</b> le lien véhicule est fiable dans 7 cas sur 10, mais moins d’un ordre sur cinq a une fiche comptable conforme. C’est là que la correction a le plus d’impact.</div>
+    </div>
+  </section>
+
+  <!-- 4. METHODE -->
+  <section class="reveal" id="methode">
+    <div class="sh"><div><h2><span class="num">4</span>Démarche</h2><p>De la règle métier à la liste de fiches à corriger.</p></div></div>
+    <div class="steps">
+      <div class="card step"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h4>Règles de contrôle</h4><p>Champs critiques définis par référentiel, chacun évalué OK / NOK.</p></div>
+      <div class="card step"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div><h4>Note sur 10</h4><p>Barème pondéré en DAX : les champs de contact pèsent plus que l’identité.</p></div>
+      <div class="card step"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div><h4>Orphelins & doublons</h4><p>Clés de rapprochement (nom + téléphone, nom + code postal, immatriculation).</p></div>
+      <div class="card step"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h4>Suivi J-7 & par site</h4><p>Les nouvelles saisies sont contrôlées chaque semaine, filtrées par concession.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  Données agrégées issues du dashboard Power BI réalisé chez Mercedes-Benz France. Aucune donnée nominative n’est affichée.<br>
+  <a href="./">Voir le projet et les captures du rapport Power BI</a> · <a href="../../">Retour au portfolio</a>
+</footer>
+
+<script>
+const fr = n => n.toLocaleString('fr-FR');
+const C = {client:'#2563EB', vehicule:'#0D9488', societe:'#C2410C'};
+const DATA = {
+  client:{label:'Clients', vol:89037, avg:5.04, delay:2467,
+    notes:{1:0.14,2:0.53,3:15.61,4:9.16,5:56.00,6:4.45,8:14.11},
+    insight:'<b>À retenir :</b> 56 % des clients plafonnent à 5/10 : l’identité est renseignée, mais il manque le téléphone portable ou l’email, qui comptent pour la moitié de la note.',
+    rules:[['Civilité',1],['Prénom',1],['Nom',1],['Adresse',1],['Code postal',1],['Téléphone portable',2.5],['Email',2.5]]},
+  vehicule:{label:'Véhicules', vol:571903, avg:7.64, delay:1592,
+    notes:{0:0.05,1:0.36,2:0.26,3:3.02,4:15.14,5:5.66,6:1.06,7:2.45,8:21.49,9:35.43,10:15.07},
+    insight:'<b>À retenir :</b> 72 % des véhicules ont une note de 8 ou plus. Le point faible est le rattachement : un véhicule sur quatre n’a aucun client.',
+    rules:[['Immatriculation',null],['Châssis',null],['Marque',null],['Date d’immatriculation',null],['Contrôle technique',null],['Rattachement client',null]]},
+  societe:{label:'Sociétés', vol:113384, avg:6.37, delay:1840,
+    notes:{0:0.03,1:0.02,2:0.60,3:1.00,4:0.94,5:28.14,6:0.64,7:65.65,8:1.96,9:0.97,10:0.05},
+    insight:'<b>À retenir :</b> deux sociétés sur trois sont à 7/10 et presque aucune n’atteint 10 : les coordonnées sont rarement complètes.',
+    rules:[['Nom',null],['Adresse',null],['Code postal',null],['Téléphone',null],['Rattachement',null]]}
+};
+
+Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+Chart.defaults.color = '#5E6B7A';
+
+let dist;
+function render(ref){
+  const d = DATA[ref], col = C[ref];
+  const labels = Array.from({length:11},(_,i)=>String(i));
+  const vals = labels.map(l => d.notes[l] ?? 0);
+  document.getElementById('distTitle').textContent = 'Répartition des notes – ' + d.label;
+  document.getElementById('mVol').textContent = fr(d.vol);
+  document.getElementById('mAvg').textContent = d.avg.toLocaleString('fr-FR',{minimumFractionDigits:2});
+  document.getElementById('mDelay').textContent = fr(d.delay) + ' j';
+  document.getElementById('distInsight').innerHTML = d.insight;
+  document.getElementById('distTable').innerHTML = '<tr><th>Note</th><th>Part des fiches</th></tr>' + labels.filter(l=>d.notes[l]!==undefined).map(l=>`<tr><td>${l}</td><td>${d.notes[l].toLocaleString('fr-FR')} %</td></tr>`).join('');
+  if(!dist){
+    dist = new Chart(document.getElementById('distChart'),{type:'bar',
+      data:{labels, datasets:[{data:vals, backgroundColor:col, borderRadius:{topLeft:4,topRight:4}, borderSkipped:'bottom', maxBarThickness:36}]},
+      options:{maintainAspectRatio:false, animation:{duration:900,easing:'easeOutQuart'},
+        plugins:{legend:{display:false}, tooltip:{backgroundColor:'#0B2545',padding:10,callbacks:{title:i=>'Note '+i[0].label+' / 10',label:i=>' '+i.raw.toLocaleString('fr-FR')+' % des fiches'}}},
+        scales:{x:{grid:{display:false},title:{display:true,text:'Note sur 10'}},y:{grid:{color:'#EEF1F5'},border:{display:false},ticks:{callback:v=>v+' %'}}}}});
+  } else {
+    dist.data.datasets[0].data = vals; dist.data.datasets[0].backgroundColor = col; dist.update();
+  }
+  // gauge
+  const arc = document.getElementById('gArc');
+  arc.style.stroke = col;
+  arc.style.strokeDashoffset = 283 * (1 - d.avg/10);
+  document.getElementById('gVal').textContent = d.avg.toLocaleString('fr-FR',{minimumFractionDigits:2});
+  const hasPts = d.rules[0][1] !== null;
+  document.getElementById('gaugeHint').textContent = hasPts ? 'Barème de la note client (10 points)' : 'Champs contrôlés (OK / NOK)';
+  document.getElementById('rules').innerHTML = d.rules.map(([n,p]) => hasPts
+    ? `<li><span>${n}</span><span class="ptbar"><i style="width:${p*40}%;background:${col}"></i></span><span class="pts">${p.toLocaleString('fr-FR')} pt</span></li>`
+    : `<li><span>${n}</span><span class="pts" style="color:${col}">✓ contrôlé</span></li>`).join('');
+}
+document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t===b));
+  render(b.dataset.ref);
+}));
+
+new Chart(document.getElementById('rattChart'),{type:'bar',
+  data:{labels:['0 client','1 client','2 clients','3 clients'],datasets:[{data:[146306,25886,2760,396951],backgroundColor:['#C62828','#0D9488','#0D9488','#0D9488'],borderRadius:4,borderSkipped:'left',maxBarThickness:34}]},
+  options:{indexAxis:'y',maintainAspectRatio:false,animation:{duration:1100},
+    plugins:{legend:{display:false},tooltip:{backgroundColor:'#0B2545',padding:10,callbacks:{label:i=>' '+fr(i.raw)+' véhicules ('+(i.raw/571903*100).toLocaleString('fr-FR',{maximumFractionDigits:1})+' %)'}}},
+    scales:{x:{grid:{color:'#EEF1F5'},border:{display:false},ticks:{callback:v=>v>=1000?(v/1000)+' k':v}},y:{grid:{display:false}}}}});
+
+// counters + bars on reveal
+function countUp(el){const t=+el.dataset.count,s=performance.now(),d=1400;
+  (function f(n){const p=Math.min((n-s)/d,1),e=1-Math.pow(1-p,3);el.textContent=fr(Math.round(t*e));if(p<1)requestAnimationFrame(f)})(s);}
+const io = new IntersectionObserver(es => es.forEach(e => { if(!e.isIntersecting) return;
+  e.target.classList.add('in');
+  e.target.querySelectorAll('[data-w]').forEach(i => i.style.width = i.dataset.w + '%');
+  e.target.querySelectorAll('[data-count]').forEach(countUp);
+  io.unobserve(e.target);
+}),{threshold:.15});
+document.querySelectorAll('.reveal,.kpis').forEach(el => io.observe(el));
+render('client');
+</script>
+</body>
+</html>
