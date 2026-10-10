@@ -1,6 +1,5 @@
 # Pilotage de la qualité des données clients, véhicules et sociétés
 
-> **[▶ Ouvrir le dashboard interactif](./dashboard.html)** : une version web du rapport à explorer en un clic, avec filtres et graphiques animés. Cette page présente le rapport Power BI d’origine et sa démarche.
 
 ## Contexte
 
