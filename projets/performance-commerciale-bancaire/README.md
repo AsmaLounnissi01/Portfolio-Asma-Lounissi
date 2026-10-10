@@ -61,7 +61,31 @@ Modèle en étoile dans Power BI : la table des opportunités au centre, reliée
 
 ## Aperçu du rapport Power BI
 
-<!-- CAPTURES_POWER_BI -->
+Le rapport compte 4 pages, filtrables par année, région, agence et famille de produits.
+
+### Vue d’ensemble
+
+Les six indicateurs clés de l’année, le PNB mois par mois comparé à l’année précédente et à l’objectif, et la répartition du PNB par famille de produits.
+
+![Vue d’ensemble](images/powerbi-vue-ensemble.png)
+
+### Performance des agences
+
+L’atteinte de l’objectif par agence, un tableau de bord avec barres de données (PNB, objectif, atteinte, évolution, transformation) et le PNB par région comparé à l’année précédente.
+
+![Performance des agences](images/powerbi-agences.png)
+
+### Produits, canaux et conseillers
+
+Le PNB par produit, le taux de transformation par canal de contact et le top 10 des conseillers.
+
+![Produits, canaux et conseillers](images/powerbi-produits-conseillers.png)
+
+### Clients : équipement et attrition
+
+Le taux d’attrition selon le nombre de produits détenus et par segment de clientèle.
+
+![Clients : équipement et attrition](images/powerbi-clients.png)
 
 ## Recommandations
 

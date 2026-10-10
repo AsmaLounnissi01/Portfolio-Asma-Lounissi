@@ -26,7 +26,8 @@ def csv_m(file, cols):
         "    Types",
     ]
 
-RENAME = {"pnb": "pnb_ligne", "montant": "montant_ligne"}
+RENAME = {"pnb": "pnb_ligne", "montant": "montant_ligne", "agence": "Agence", "region": "Région", "conseiller": "Conseiller",
+          "produit": "Produit", "famille": "Famille", "segment": "Segment", "canal": "Canal"}
 T_TXT, T_INT, T_NUM, T_DATE = "type text", "Int64.Type", "type number", "type date"
 DT = {T_TXT: "string", T_INT: "int64", T_NUM: "double", T_DATE: "dateTime"}
 
@@ -56,8 +57,8 @@ MEASURES = [
     ("Opportunités traitées", "COUNTROWS(Opportunites)", INT),
     ("Ventes signées", 'CALCULATE(COUNTROWS(Opportunites), Opportunites[statut] = "Signé")', INT),
     ("Taux de transformation", "DIVIDE([Ventes signées], [Opportunités traitées])", PCT),
-    ("Production crédit", 'CALCULATE(SUM(Opportunites[montant_ligne]), Opportunites[statut] = "Signé", Produits[famille] = "Crédit")', EUR),
-    ("Collecte épargne", 'CALCULATE(SUM(Opportunites[montant_ligne]), Opportunites[statut] = "Signé", Produits[famille] = "Épargne")', EUR),
+    ("Production crédit", 'CALCULATE(SUM(Opportunites[montant_ligne]), Opportunites[statut] = "Signé", Produits[Famille] = "Crédit")', EUR),
+    ("Collecte épargne", 'CALCULATE(SUM(Opportunites[montant_ligne]), Opportunites[statut] = "Signé", Produits[Famille] = "Épargne")', EUR),
     ("Nombre de clients", "COUNTROWS(Clients)", INT),
     ("Clients partis", 'CALCULATE(COUNTROWS(Clients), Clients[statut_client] = "Parti en 2025")', INT),
     ("Attrition clients", "DIVIDE([Clients partis], [Nombre de clients])", PCT),
@@ -151,6 +152,7 @@ class Q:
             self.ents.append(e)
         return {"SourceRef": {"Source": ALIAS[e]}}
     def col(self, e, p):
+        p = RENAME.get(p, p)
         ref = f"{e}.{p}"
         self.sel.append({"Column": {"Expression": self._src(e), "Property": p}, "Name": ref, "NativeReferenceName": p})
         return ref
@@ -159,6 +161,7 @@ class Q:
         self.sel.append({"Measure": {"Expression": self._src(e), "Property": p}, "Name": ref, "NativeReferenceName": p})
         return ref
     def sort(self, kind, e, p, direction):
+        p = RENAME.get(p, p) if kind == "c" else p
         key = "Measure" if kind == "m" else "Column"
         self.order.append({"Direction": direction, "Expression": {key: {"Expression": self._src(e), "Property": p}}})
     def build(self):
@@ -226,8 +229,8 @@ def card(x, y, w, h, measure, label, accent):
     q = Q(); ref = q.m(measure)
     sv = {"visualType": "card", "projections": {"Values": [{"queryRef": ref}]}, "prototypeQuery": q.build(),
           "drillFilterOtherVisuals": True,
-          "objects": {"labels": [{"properties": {"fontSize": lit("22D"), "color": color("#0B2545"), "labelDisplayUnits": lit("1D"),
-                                                 "labelPrecision": lit("1L") if "%" in label or "Équipement" in label else lit("0L")}}],
+          "objects": {"labels": [{"properties": {"fontSize": lit("22D"), "color": color("#0B2545"), "labelDisplayUnits": lit("0D" if label == "PNB" else "1D"),
+                                                 "labelPrecision": lit("0L") if label == "n" else lit("1L")}}],
                       "categoryLabels": [{"properties": {"show": lit("true"), "fontSize": lit("10D")}}]},
           "vcObjects": {"title": [{"properties": {"show": lit("false")}}],
                         "border": [{"properties": {"show": lit("true"), "color": color("#E6EAF0"), "radius": lit("12D")}}],
@@ -256,7 +259,7 @@ def chart(x, y, w, h, vtype, title, cat, values, colors=None, y2=None, sort=None
             "valueAxis": [{"properties": {"showAxisTitle": lit("false"), "fontSize": lit("9D"), "gridlineColor": color("#E6EAF0")}}],
             "legend": [{"properties": {"show": lit("true" if (len(values) + len(y2 or [])) > 1 else "false"),
                                        "position": s("Top"), "fontSize": lit("9D")}}]}
-    dp = []
+    dp = [{"properties": {"defaultColor": color(colors[0])}}] if colors else []
     for i, v in enumerate(values + (y2 or [])):
         if colors and i < len(colors):
             dp.append({"properties": {"fill": color(colors[i])}, "selector": {"metadata": f"Opportunites.{v}"}})
@@ -276,7 +279,7 @@ def donut(x, y, w, h, title, cat, measure, palette):
     objs = {"labels": [{"properties": {"show": lit("true"), "labelStyle": s("Category, percent of total"), "fontSize": lit("10D")}}],
             "legend": [{"properties": {"show": lit("false")}}],
             "dataPoint": [{"properties": {"fill": color(col)}, "selector": {"data": [{"scopeId": {"Comparison": {"ComparisonKind": 0,
-                "Left": {"Column": {"Expression": {"SourceRef": {"Entity": cat[0]}}, "Property": cat[1]}},
+                "Left": {"Column": {"Expression": {"SourceRef": {"Entity": cat[0]}}, "Property": RENAME.get(cat[1], cat[1])}},
                 "Right": {"Literal": {"Value": "'" + val + "'"}}}}}]}} for val, col in palette.items()]}
     sv = {"visualType": "donutChart", "projections": {"Category": [{"queryRef": c, "active": True}], "Y": [{"queryRef": m}]},
           "prototypeQuery": q.build(), "drillFilterOtherVisuals": True, "objects": objs, "vcObjects": title_vc(title)}
@@ -298,6 +301,7 @@ def table_visual(x, y, w, h, title, cols, measures, sort_measure):
     return container(x, y, w, h, sv)
 
 def topn_filter(ent, prop, measure, n):
+    prop = RENAME.get(prop, prop)
     return [{"name": uuid.uuid4().hex[:20], "expression": {"Column": {"Expression": {"SourceRef": {"Entity": ent}}, "Property": prop}},
              "filter": {"Version": 2, "From": [
                  {"Name": "subquery", "Expression": {"Subquery": {"Query": {"Version": 2,
@@ -335,7 +339,7 @@ v = header("Banque Aurore · Performance des agences", "PNB, objectifs et transf
 v.append(chart(24, 144, 470, 560, "clusteredBarChart", "Atteinte de l’objectif PNB par agence", ("Agences", "agence"),
                ["Atteinte objectif"], [TEAL], sort=("m", "Opportunites", "Atteinte objectif", 2)))
 v.append(table_visual(506, 144, 750, 340, "Tableau de bord des agences", [("Agences", "agence"), ("Agences", "region")],
-                      ["PNB", "Objectif PNB", "Atteinte objectif", "Évolution PNB", "Ventes signées", "Taux de transformation"],
+                      ["PNB", "Objectif PNB", "Atteinte objectif", "Évolution PNB", "Taux de transformation"],
                       "Atteinte objectif"))
 v.append(chart(506, 496, 750, 208, "clusteredColumnChart", "PNB par région : année et année précédente", ("Agences", "region"),
                ["PNB", "PNB N-1"], [NAVY, SLATE], sort=("m", "Opportunites", "PNB", 2)))
