@@ -52,24 +52,11 @@ Chez Mercedes-Benz France, j’ai conçu un dashboard Power BI qui calcule et su
 
 ### 4. Automatisation du SAV Free Mobile avec NLP, LLM, RAG et Streamlit
 
-[Voir le projet](./projets/automatisation-sav-nlp-llm/)
+Pour mon projet de fin d’études, j’ai automatisé le traitement des tweets adressés au SAV de Free Mobile. Un pipeline Python nettoie 6 310 tweets et en garde 2 989 venant de clients, puis un LLM (Mistral AI ou Ollama), enrichi par une base de 4 755 réponses types (RAG), donne pour chacun le thème, le sentiment, l’urgence, un résumé, une réponse suggérée et l’équipe à qui l’envoyer. Les résultats alimentent une application Streamlit à trois écrans (Analyste, Manager, Agent SAV), un chatbot et un dashboard Power BI.
 
-Projet de fin d’études sur un cas client Free Mobile.  
-L’objectif était d’automatiser le traitement des tweets clients : nettoyage, classification par un LLM, suggestion de réponse, routage vers la bonne équipe, puis pilotage dans des applications Streamlit et un dashboard Power BI.
+- **[Voir le projet](./projets/automatisation-sav-nlp-llm/)** : l’architecture, la démarche détaillée et les captures des applications Streamlit et du dashboard Power BI.
 
-**Points clés :**
-
-- Pipeline Python automatisé : nettoyage, filtrage et déduplication de 6 310 tweets (2 989 tweets clients)
-- Classification par LLM (Mistral AI / Ollama) : thème, sentiment, urgence, gravité, résumé, réponse suggérée et équipe de routage
-- Enrichissement RAG avec une base de 4 755 modèles de réponses (Sentence-Transformers)
-- Traitement en parallèle avec cache SQLite pour limiter le coût et le temps des appels LLM
-- Application Streamlit pour lancer le pipeline sans code
-- Application SAV Streamlit à 3 écrans : Analyste, Manager, Agent SAV avec file d’attente priorisée
-- Chatbot RAG (ChromaDB, Llama 3.3) pour répondre aux questions clients
-- Dashboard Power BI : 33,7 % de demandes urgentes détectées, suivi du sentiment et des délais
-
-**Outils :** Python, Pandas, LangChain, Mistral AI, Ollama, Sentence-Transformers, ChromaDB, Streamlit, Power BI, DAX  
-**Thèmes :** NLP, LLM, RAG, automatisation, service client, data visualization
+**Outils :** Python, Pandas, LangChain, Mistral AI, Ollama, Sentence-Transformers, ChromaDB, Streamlit, Power BI, DAX
 
 ---
 
