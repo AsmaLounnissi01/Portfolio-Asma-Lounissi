@@ -40,39 +40,43 @@ Comment analyser et fiabiliser les populations clients et véhicules disponibles
 
 ## Aperçu du dashboard
 
-> Les données détaillées ont été floutées pour respecter la confidentialité. Les indicateurs globaux restent visibles afin d’illustrer la démarche d’analyse.
+> Les données nominatives (noms, adresses, téléphones, immatriculations) ont été floutées. Les indicateurs globaux restent visibles.
 
-### Vue d'accueil
+### Vue d’accueil
 
-![Dashboard marketing](images/dashboard-marketing-accueil.png)
+Volumes de véhicules, clients, sociétés et contacts disponibles par canal, répartis par modèle, département et site.
+
+![Accueil](images/dashboard-accueil.png)
 
 ### Canaux de communication
+
+Contacts exploitables par canal selon l’autorisation RGPD, avec le détail par modèle et des boutons vers chaque extraction.
 
 ![Canaux de communication](images/dashboard-canaux-communication.png)
 
 ### Extraction globale
 
-![Extraction globale](images/dashboard-extraction-globale-floute.png)
+![Extraction globale](images/dashboard-extraction-globale.png)
 
 ### Extraction Email
 
-![Email](images/dashboard-email-floute.png)
+![Email](images/dashboard-email.png)
 
 ### Extraction SMS
 
-![SMS](images/dashboard-sms-floute.png)
+![SMS](images/dashboard-sms.png)
 
 ### Extraction Téléphone
 
-![Téléphone](images/dashboard-telephone-floute.png)
+![Téléphone](images/dashboard-telephone.png)
 
 ### Extraction Courrier
 
-![Courrier](images/dashboard-courrier-floute.png)
+![Courrier](images/dashboard-courrier.png)
 
-### Suivi entretien et contrôle technique
+### Suivi des prochains entretiens et contrôles techniques
 
-![Entretien et contrôle technique](images/dashboard-entretien-ct-floute.png)
+![Entretien et contrôle technique](images/dashboard-entretien-ct.png)
 
 ## Compétences utilisées
 
